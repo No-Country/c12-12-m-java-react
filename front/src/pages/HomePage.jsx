@@ -1,14 +1,14 @@
-import Header from "../components/Header";
+import Header from '../components/Header/Header';
 
 function HomePage() {
 	return (
-		<div>
-			<Header/>
-			<div style={{margin: '20px'}}>
-				<h1>Bienvenido a nuestro e-commerce de ropa vintage!</h1>
-			</div>
+		<>
+		<Header/>
+		<div style={{padding: '50px'}}>
+			<h1>Bienvenido a nuestro e-commerce de ropa vintage!</h1>
 		</div>
 		
+		</>
 	);
 }
 

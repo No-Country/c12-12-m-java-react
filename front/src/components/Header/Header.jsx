@@ -38,10 +38,10 @@ const Header = () => {
         {/* Dropdown */}
         {isDropdownOpen && (
           <div className="header__user-dropdown">
-            <a href="#" className="header__user-option">
+            <a href="/" className="header__user-option">
               Log in
             </a>
-            <a href="#" className="header__user-option">
+            <a href="/sign-up" className="header__user-option">
               Sign up
             </a>
           </div>

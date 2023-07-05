@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
-import Header from "../components/Header/Header";
-
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -73,8 +70,10 @@ function SignUp() {
 
       if (errorMessage) {
         toast.error(errorMessages[errorMessage], toastOptions);
+        
       } else {
         toast.error(errorMessages.invalidCredentials, toastOptions);
+
       }
     } catch (error) {
       toast.error(errorMessages.invalidCredentials, toastOptions);
@@ -83,7 +82,6 @@ function SignUp() {
 
   return (
     <>
-      <Header />
       <Container component="main" maxWidth="xs" sx={{ marginBottom: 10 }}>
         <Box
           sx={{

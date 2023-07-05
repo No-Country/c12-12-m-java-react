@@ -3,18 +3,24 @@ import { FaBars, FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/deer.svg";
 
 import "./Header.scss";
-
-const Header = () => {
+// eslint-disable-next-line react/prop-types
+const Header = ({toggleDrawer}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // const toggleDrawer = () => {
+  //   setIsDropdownOpen(!isDropdownOpen);
+  //   console.log(isDropdownOpen);
+  // };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
     console.log(isDropdownOpen);
   };
+
   return (
     <header className="header">
       <div className="header__menu">
-      <button className="header__menu-button" onClick={() => console.log("open")}>
+      <button className="header__menu-button" onClick={toggleDrawer}>
         <FaBars className="header__menu-icon" />
         </button>
       </div>

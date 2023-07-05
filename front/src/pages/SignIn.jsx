@@ -10,12 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdLockOutline } from "react-icons/md";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
+import {validateCredentials, errorMessages, toastOptions } from "./SignUp";
 
 const SignIn = () => {
   const [credentials, setCredentials] = useState({
@@ -37,6 +38,7 @@ const SignIn = () => {
     if (auth) {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,7 +132,8 @@ const SignIn = () => {
               </Typography>
             </Grid>
             <Typography variant="body2">
-              Don't have an account?{" "}
+              
+              Don&apos;t have an account?{" "}
               <Link
                 to="/sign-up"
                 variant="body2"

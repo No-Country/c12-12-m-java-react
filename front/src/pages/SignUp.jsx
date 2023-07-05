@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
 
-const errorMessages = {
+export const errorMessages = {
   requiredFields: "All fields are required",
   shortName: "Please enter a name with more than 5 characters",
   invalidEmail: "Please enter a valid email",
@@ -25,7 +25,7 @@ const errorMessages = {
   invalidCredentials: "Invalid Credentials",
 };
 
-const toastOptions = {
+export const toastOptions = {
   autoClose: 1200,
   theme: "colored",
 };
@@ -33,7 +33,7 @@ const toastOptions = {
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-function validateCredentials(credentials) {
+export const validateCredentials = (credentials) => {
   if (!credentials.email && !credentials.fullName && !credentials.password) {
     return "requiredFields";
   } else if (credentials.fullName.length <= 5) {

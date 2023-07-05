@@ -30,7 +30,8 @@ const toastOptions = {
   theme: "colored",
 };
 
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 function validateCredentials(credentials) {
   if (!credentials.email && !credentials.fullName && !credentials.password) {
@@ -70,10 +71,8 @@ function SignUp() {
 
       if (errorMessage) {
         toast.error(errorMessages[errorMessage], toastOptions);
-        
       } else {
         toast.error(errorMessages.invalidCredentials, toastOptions);
-
       }
     } catch (error) {
       toast.error(errorMessages.invalidCredentials, toastOptions);
@@ -177,7 +176,10 @@ function SignUp() {
               <Grid item>
                 <Typography variant="body2">
                   Already have an account?{" "}
-                  <Link to="" style={{ color: "#1976d2", marginLeft: 3 }}>
+                  <Link
+                    to="/sign-in"
+                    style={{ color: "#1976d2", marginLeft: 3 }}
+                  >
                     Sign in
                   </Link>
                 </Typography>

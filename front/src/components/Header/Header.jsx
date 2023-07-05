@@ -4,7 +4,7 @@ import logo from "../../assets/deer.svg";
 
 import "./Header.scss";
 // eslint-disable-next-line react/prop-types
-const Header = ({toggleDrawer}) => {
+const Header = ({ toggleDrawer }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // const toggleDrawer = () => {
@@ -20,8 +20,8 @@ const Header = ({toggleDrawer}) => {
   return (
     <header className="header">
       <div className="header__menu">
-      <button className="header__menu-button" onClick={toggleDrawer}>
-        <FaBars className="header__menu-icon" />
+        <button className="header__menu-button" onClick={toggleDrawer}>
+          <FaBars className="header__menu-icon" />
         </button>
       </div>
       <div className="header__logo">
@@ -33,7 +33,7 @@ const Header = ({toggleDrawer}) => {
           Home
         </a>
         <a href="/cart" className="header__links-link">
-          <FaShoppingCart className="header__link-icon" size={24}/>
+          <FaShoppingCart className="header__link-icon" size={24} />
         </a>
 
         {/* Icono de avatar de usuario */}
@@ -44,7 +44,7 @@ const Header = ({toggleDrawer}) => {
         {/* Dropdown */}
         {isDropdownOpen && (
           <div className="header__user-dropdown">
-            <a href="/" className="header__user-option">
+            <a href="/sign-in" className="header__user-option">
               Log in
             </a>
             <a href="/sign-up" className="header__user-option">

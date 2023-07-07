@@ -14,7 +14,7 @@ variables:
   MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)' 
 
   # Container registry service connection established during pipeline creation
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'back/Dockerfile'
   buildTag: '$(Build.BuildId)'
   latestTag: 'latest'
 
@@ -51,7 +51,7 @@ stages:
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerhubRepository'
-            repository: 'back_vivavintage'
+            repository: 'ovas04/back_vivavintage'
             command: 'buildAndPush'
             Dockerfile: '$(dockerfilePath)'
             buildContext: '$(System.DefaultWorkingDirectory)/'

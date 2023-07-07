@@ -8,9 +8,15 @@ trigger:
     exclude:
       - front/*
 
+
 variables:
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
   MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)' 
+
+  # Container registry service connection established during pipeline creation
+  dockerfilePath: '**/Dockerfile'
+  buildTag: '$(Build.BuildId)'
+  latestTag: 'latest'
 
 stages:
   - stage: 'Build'
@@ -42,6 +48,16 @@ stages:
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS) --llr -Dmaven.test.skip=true"
           displayName: Build App
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'dockerhub-ovas04'
+            repository: 'ovas04/back-vivavintage'
+            command: 'buildAndPush'
+            Dockerfile: '$(dockerfilePath)'
+            buildContext: '$(System.DefaultWorkingDirectory)/'
+            tags: |
+              $(buildTag)
+              $(latestTag)
 
   - stage: 'Test'
     displayName: 'Test Spring Boot App'
@@ -72,3 +88,18 @@ stages:
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS)"
           displayName: Test App
+
+  - stage: 'Release Docker Hub'
+    displayName: 'Test Spring Boot App'
+    jobs:
+    - job: 'ReleaseDockerHub'
+      pool:
+        vmImage: ubuntu-latest
+      steps:
+       - task: Docker@2
+         inputs:
+           containerRegistry: 'dockerhub-ovas04'
+           repository: 'ovas04/back-vivavintage'
+           command: 'buildAndPush'
+           Dockerfile: '**/Dockerfile'
+

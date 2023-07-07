@@ -12,15 +12,13 @@ variables:
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
   MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)' 
 
-
 stages:
   - stage: 'Build'
     displayName: 'Build Spring Boot App'
     jobs:
     - job: 'build'
-      pool: 
-       vmImage: ubuntu-latest
-
+      pool:
+        vmImage: ubuntu-latest
       steps:
         - task: Cache@2
           inputs:      
@@ -30,7 +28,7 @@ stages:
               maven
             path: $(MAVEN_CACHE_FOLDER)
           displayName: Cache Maven local repo
-
+          
         - task: Maven@3
           inputs:
             mavenPomFile: "pom.xml"
@@ -43,15 +41,14 @@ stages:
             goals: "clean"
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS) --llr -Dmaven.test.skip=true"
-            displayName: Build App
+          displayName: Build App
 
   - stage: 'Test'
     displayName: 'Test Spring Boot App'
     jobs:
     - job: 'test'
-      pool: 
-       vmImage: ubuntu-latest
-
+      pool:
+        vmImage: ubuntu-latest
       steps:
         - task: Cache@2
           inputs:      
@@ -74,4 +71,4 @@ stages:
             goals: "clean"
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS)"
-            displayName: Test App
+          displayName: Test App

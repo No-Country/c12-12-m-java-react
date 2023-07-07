@@ -48,16 +48,6 @@ stages:
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS) --llr -Dmaven.test.skip=true"
           displayName: Build App
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'dockerhubRepository'
-            repository: 'ovas04/back_vivavintage'
-            command: 'buildAndPush'
-            Dockerfile: '$(dockerfilePath)'
-            buildContext: '$(System.DefaultWorkingDirectory)/'
-            tags: |
-              $(buildTag)
-              $(latestTag)
 
   - stage: 'Test'
     displayName: 'Test Spring Boot App'
@@ -96,10 +86,15 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
-       - task: Docker@2
-         inputs:
-           containerRegistry: 'dockerhub-ovas04'
-           repository: 'ovas04/back-vivavintage'
-           command: 'buildAndPush'
-           Dockerfile: '**/Dockerfile'
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'dockerhubRepository'
+            repository: 'ovas04/back_vivavintage'
+            command: 'buildAndPush'
+            Dockerfile: '$(dockerfilePath)'
+            buildContext: '$(System.DefaultWorkingDirectory)/'
+            tags: |
+              $(buildTag)
+              $(latestTag)
+
 

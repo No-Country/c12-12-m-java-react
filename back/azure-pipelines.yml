@@ -51,7 +51,7 @@ stages:
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerhub-ovas04'
-            repository: 'ovas04/back-vivavintage'
+            repository: 'ovas04/back_vivavintage'
             command: 'buildAndPush'
             Dockerfile: '$(dockerfilePath)'
             buildContext: '$(System.DefaultWorkingDirectory)/'

@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - feature/ovas04-hu0-devops01-azurepipelines
+      - develop
   paths:
     include:
       - back/*
@@ -92,7 +92,7 @@ stages:
             repository: 'ovas04/back_vivavintage'
             command: 'buildAndPush'
             Dockerfile: '$(dockerfilePath)'
-            buildContext: '$(System.DefaultWorkingDirectory)/'
+            buildContext: '$(System.DefaultWorkingDirectory)/back/'
             tags: |
               $(buildTag)
               $(latestTag)

@@ -5,6 +5,8 @@ trigger:
   paths:
     include:
       - back/*
+    exclude:
+      - front/*
 
 variables:
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository

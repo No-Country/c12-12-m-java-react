@@ -17,14 +17,13 @@ variables:
   dockerfilePath: 'back/Dockerfile'
   buildTag: '$(Build.BuildId)'
   latestTag: 'latest'
-
+  pool:
+    vmImage: ubuntu-latest
 stages:
   - stage: 'Build'
     displayName: 'Build Spring Boot App'
     jobs:
     - job: 'build'
-      pool:
-        vmImage: ubuntu-latest
       steps:
         - task: Cache@2
           inputs:      
@@ -49,12 +48,11 @@ stages:
             options: "-X -P azure_artifacts $(MAVEN_OPTS) --llr -Dmaven.test.skip=true"
           displayName: Build App
 
+
   - stage: 'Test'
     displayName: 'Test Spring Boot App'
     jobs:
     - job: 'test'
-      pool:
-        vmImage: ubuntu-latest
       steps:
         - task: Cache@2
           inputs:      
@@ -83,9 +81,15 @@ stages:
     displayName: 'Release into DockerHub'
     jobs:
     - job: 'ReleaseDockerHub'
-      pool:
-        vmImage: ubuntu-latest
       steps:
+        - task: Cache@2
+          inputs:      
+            key: 'maven | "$(Agent.OS)" | **/pom.xml'
+            restoreKeys: |
+              maven | "$(Agent.OS)"
+              maven
+            path: $(MAVEN_CACHE_FOLDER)
+          displayName: Cache Maven local repo
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerhubRepository'

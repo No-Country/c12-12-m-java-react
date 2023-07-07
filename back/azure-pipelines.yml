@@ -79,7 +79,7 @@ stages:
             options: "-X -P azure_artifacts $(MAVEN_OPTS)"
           displayName: Test App
 
-  - stage: 'Release Docker Hub'
+  - stage: 'Release_Docker_Hub'
     displayName: 'Test Spring Boot App'
     jobs:
     - job: 'ReleaseDockerHub'

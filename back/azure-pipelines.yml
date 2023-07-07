@@ -46,9 +46,9 @@ stages:
             displayName: Build App
 
   - stage: 'Test'
-    displayName: 'Build Spring Boot App'
+    displayName: 'Test Spring Boot App'
     jobs:
-    - job: 'build'
+    - job: 'test'
       pool: 
        vmImage: ubuntu-latest
 
@@ -74,4 +74,4 @@ stages:
             goals: "clean"
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS)"
-            displayName: Build App
+            displayName: Test App

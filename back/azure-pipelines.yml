@@ -31,7 +31,7 @@ stages:
           
         - task: Maven@3
           inputs:
-            mavenPomFile: "pom.xml"
+            mavenPomFile: "back/pom.xml"
             mavenOptions: "-Xmx3072m"
             javaHomeOption: "JDKVersion"
             jdkVersionOption: "1.11"
@@ -61,7 +61,7 @@ stages:
 
         - task: Maven@3
           inputs:
-            mavenPomFile: "pom.xml"
+            mavenPomFile: "back/pom.xml"
             mavenOptions: "-Xmx3072m"
             javaHomeOption: "JDKVersion"
             jdkVersionOption: "1.11"

@@ -17,8 +17,9 @@ variables:
   dockerfilePath: 'back/Dockerfile'
   buildTag: '$(Build.BuildId)'
   latestTag: 'latest'
-  pool:
-    vmImage: ubuntu-latest
+  
+pool:
+  vmImage: ubuntu-latest
 stages:
   - stage: 'Build'
     displayName: 'Build Spring Boot App'

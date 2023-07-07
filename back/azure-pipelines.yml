@@ -80,7 +80,7 @@ stages:
           displayName: Test App
 
   - stage: 'Release_Docker_Hub'
-    displayName: 'Test Spring Boot App'
+    displayName: 'Release into DockerHub'
     jobs:
     - job: 'ReleaseDockerHub'
       pool:

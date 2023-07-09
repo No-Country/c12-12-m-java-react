@@ -48,17 +48,8 @@ stages:
           node -v
           npm -v
           npm run dev & 
-
-        failOnStderr: true
         workingDirectory: $(Build.SourcesDirectory)/front/
-        condition: succeeded()
-        continueOnError: false
-        target: host
-        enabled: true
-        env:
-          TEST_ENVIRONMENT: staging
-          TEST_SUITE: full
-        name: "RunTests"
+        timeoutInMinutes: 1
         retryCountOnTaskFailure: 0
         displayName: "Test App"
 

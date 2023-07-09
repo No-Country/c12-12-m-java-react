@@ -48,7 +48,7 @@ stages:
           npm run dev & 
           sleep 10
           echo "Esperamos 10"
-          curlo -X GET localhost:3000 > response.txt
+          curl -X GET localhost:3000 > response.txt
           cat response.txt
           response=$(curl -X GET -s -o /dev/null -w "%{http_code}" https://localhost:3000)
           if [[ "$response" -eq 200 ]]; then

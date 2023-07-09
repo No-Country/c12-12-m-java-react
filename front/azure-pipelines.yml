@@ -33,10 +33,10 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Install NPM"
 
-      - script:  npm run dev
+      - script:  npm run dev; q
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Build App"
-        timeoutInMinutes: 0.5 # Wait 30 seg to valid successfull build   
+        timeoutInMinutes: 1
         failOnStderr: false
 
   - stage: 'Test'
@@ -45,7 +45,7 @@ stages:
     - job: 'test'
       steps:
       - script:  |
-          response=$(curl -X GET -s -o /dev/null -w "%{http_code}" https://localhost:8080)
+          response=$(curl -X GET -s -o /dev/null -w "%{http_code}" https://localhost:3000)
           if [[ "$response" -eq 200 ]]; then
             echo "Request was successful"
           else

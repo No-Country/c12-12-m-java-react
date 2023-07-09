@@ -5,71 +5,79 @@ trigger:
   paths:
     include:
       - front/*
+    exclude:
+      - back/*
 
 variables:
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
   MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)' 
 
-
+  # Container registry service connection established during pipeline creation
+  dockerfilePath: 'front/Dockerfile'
+  buildTag: '$(Build.BuildId)'
+  latestTag: 'latest'
+  
+pool:
+  vmImage: ubuntu-latest
 stages:
   - stage: 'Build'
-    displayName: 'Build Spring Boot App'
+    displayName: 'Build React App'
     jobs:
     - job: 'build'
-      pool: 
-       vmImage: ubuntu-latest
-
       steps:
-        - task: Cache@2
-          inputs:      
-            key: 'maven | "$(Agent.OS)" | **/pom.xml'
-            restoreKeys: |
-              maven | "$(Agent.OS)"
-              maven
-            path: $(MAVEN_CACHE_FOLDER)
-          displayName: Cache Maven local repo
-
-        - task: Maven@3
+        - task: NodeTool@0
           inputs:
-            mavenPomFile: "pom.xml"
-            mavenOptions: "-Xmx3072m"
-            javaHomeOption: "JDKVersion"
-            jdkVersionOption: "1.11"
-            jdkArchitectureOption: "x64"
-            publishJUnitResults: true
-            testResultsFiles: "**/surefire-reports/TEST-*.xml"
-            goals: "clean"
-            mavenAuthenticateFeed: true
-            options: "-X -P azure_artifacts $(MAVEN_OPTS) --llr -Dmaven.test.skip=true"
-            displayName: Build App
+            versionSpec: "10.x"
+          displayName: "Install Node.js"
+
+        - script: npm install
+          displayName: "Install NPM"
+          
+        - script: npm run dev
+          displayName: "Build"
 
   - stage: 'Test'
-    displayName: 'Build Spring Boot App'
+    displayName: 'Test React App'
     jobs:
-    - job: 'build'
-      pool: 
-       vmImage: ubuntu-latest
-
+    - job: 'test'
       steps:
-        - task: Cache@2
-          inputs:      
-            key: 'maven | "$(Agent.OS)" | **/pom.xml'
-            restoreKeys: |
-              maven | "$(Agent.OS)"
-              maven
-            path: $(MAVEN_CACHE_FOLDER)
-          displayName: Cache Maven local repo
+        - script: |
+            curl -X GET http://localhost:3000 > response.txt
+            if grep -q "E-commerce" response.txt; then
+              echo "Data found in the response"
+            else
+              echo "Data not found in the response"
+              exit 1
+            fi
+          failOnStderr: true
+          workingDirectory: $(Build.SourcesDirectory)
+          condition: and(succeeded()
+          continueOnError: false
+          target: host
+          enabled: true
+          env:
+            TEST_ENVIRONMENT: staging
+            TEST_SUITE: full
+          name: "RunTests"
+          retryCountOnTaskFailure: 1
+          displayName: Validate with curl
 
-        - task: Maven@3
+
+  - stage: 'Release_Docker_Hub'
+    displayName: 'Release into DockerHub'
+    jobs:
+    - job: 'releaseDockerHub'
+      steps:
+        - task: Docker@2
           inputs:
-            mavenPomFile: "pom.xml"
-            mavenOptions: "-Xmx3072m"
-            javaHomeOption: "JDKVersion"
-            jdkVersionOption: "1.11"
-            jdkArchitectureOption: "x64"
-            publishJUnitResults: true
-            testResultsFiles: "**/surefire-reports/TEST-*.xml"
-            goals: "clean"
-            mavenAuthenticateFeed: true
-            options: "-X -P azure_artifacts $(MAVEN_OPTS)"
-            displayName: Build App
+            containerRegistry: 'dockerhubRepository'
+            repository: 'ovas04/front-vivavintage'
+            command: 'buildAndPush'
+            Dockerfile: '$(dockerfilePath)'
+            buildContext: '$(System.DefaultWorkingDirectory)/front/'
+            tags: |
+              $(buildTag)
+              $(latestTag)
+          displayName: Release Into DockerHub
+
+

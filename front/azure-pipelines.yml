@@ -31,7 +31,7 @@ stages:
       - script: npm install
         displayName: "Install NPM"
 
-      - script: npm run dev
+      - script: pwd; npm run dev
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Build App"
 

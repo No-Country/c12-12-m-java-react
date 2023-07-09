@@ -81,7 +81,7 @@ stages:
   - stage: 'Release_Docker_Hub'
     displayName: 'Release into DockerHub'
     jobs:
-    - job: 'ReleaseDockerHub'
+    - job: 'releaseDockerHub'
       steps:
         - task: Cache@2
           inputs:      
@@ -101,5 +101,6 @@ stages:
             tags: |
               $(buildTag)
               $(latestTag)
+          displayName: Release Into DockerHub
 
 

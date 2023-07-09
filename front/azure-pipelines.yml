@@ -32,7 +32,7 @@ stages:
       - task: Cache@2
         inputs:
           key: 'front/package-lock.json'
-          path: 'npm_config_cache'
+          path: '$(npm_config_cache)'
           cacheHitVar: 'npm_variable_cache'
 
       - task: Npm@1
@@ -58,6 +58,12 @@ stages:
           versionSpec: "16.x"
         displayName: "Install Node.js"
 
+      - task: Cache@2
+        inputs:
+          key: 'front/package-lock.json'
+          path: '$(npm_config_cache)'
+          cacheHitVar: 'npm_variable_cache'
+          
       - task: Npm@1
         inputs:
           command: 'custom'

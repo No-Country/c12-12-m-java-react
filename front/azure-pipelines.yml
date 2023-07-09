@@ -44,6 +44,15 @@ stages:
     jobs:
     - job: 'test'
       steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - script: npm install
+        workingDirectory: $(Build.SourcesDirectory)/front/
+        displayName: "Install NPM"
+              
       - script:  |
           npm run dev 
         workingDirectory: $(Build.SourcesDirectory)/front/

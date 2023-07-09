@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 
@@ -14,6 +15,7 @@ function Router() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </Provider>
   );

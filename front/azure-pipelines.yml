@@ -8,7 +8,6 @@ trigger:
     exclude:
       - back/*
 
-
 variables:
   # Container registry service connection established during pipeline creation
   dockerfilePath: 'back/Dockerfile'
@@ -17,6 +16,7 @@ variables:
   
 pool:
   vmImage: ubuntu-latest
+
 stages:
   - stage: 'Build'
     displayName: 'Build React App'
@@ -31,9 +31,8 @@ stages:
       - script: npm install
         displayName: "Install NPM"
 
-      - script: npm run dev          
-        displayName: Build App
-
+      - script: npm run dev
+        displayName: "Build App"
 
   - stage: 'Test'
     displayName: 'Test React App'
@@ -49,8 +48,8 @@ stages:
             exit 1
           fi
         failOnStderr: true
-        workingDirectory: $(Build.SourcesDirectory)\
-        condition: and(succeeded()
+        workingDirectory: $(Build.SourcesDirectory)
+        condition: and(succeeded())
         continueOnError: false
         target: host
         enabled: true
@@ -59,7 +58,7 @@ stages:
           TEST_SUITE: full
         name: "RunTests"
         retryCountOnTaskFailure: 1
-        displayName: Test App
+        displayName: "Test App"
 
   - stage: 'Release_Docker_Hub'
     displayName: 'Release into DockerHub'
@@ -72,10 +71,8 @@ stages:
             repository: 'ovas04/front-vivavintage'
             command: 'buildAndPush'
             Dockerfile: '$(dockerfilePath)'
-            buildContext: '$(System.DefaultWorkingDirectory)/front/'
+            buildContext: '$(System.DefaultWorkingDirectory)/front'
             tags: |
               $(buildTag)
               $(latestTag)
-          displayName: Release Into DockerHub
-
-
+          displayName: "Release Into DockerHub"

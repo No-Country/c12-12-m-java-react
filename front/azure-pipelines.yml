@@ -9,6 +9,7 @@ trigger:
       - back/*
 
 variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
   # Container registry service connection established during pipeline creation
   dockerfilePath: 'back/Dockerfile'
   buildTag: '$(Build.BuildId)'
@@ -25,7 +26,7 @@ stages:
       steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: "12.x"
+          versionSpec: "16.x"
         displayName: "Install Node.js"
 
       - script: npm install

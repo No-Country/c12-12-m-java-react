@@ -49,7 +49,7 @@ stages:
           fi
         failOnStderr: true
         workingDirectory: $(Build.SourcesDirectory)
-        condition: and(succeeded())
+        condition: succeeded()
         continueOnError: false
         target: host
         enabled: true

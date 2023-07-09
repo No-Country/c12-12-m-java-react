@@ -29,8 +29,17 @@ stages:
           versionSpec: "16.x"
         displayName: "Install Node.js"
 
-      - script: npm install
-        workingDirectory: $(Build.SourcesDirectory)/front/
+      - task: Cache@2
+        inputs:
+          key: 'front/package-lock.json'
+          path: 'npm_config_cache'
+          cacheHitVar: 'npm_variable_cache'
+
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: 'front/'
+          customCommand: 'ci --cache $(npm_config_cache)'
         displayName: "Install NPM"
 
       - script:  npm run build
@@ -49,8 +58,11 @@ stages:
           versionSpec: "16.x"
         displayName: "Install Node.js"
 
-      - script: npm install
-        workingDirectory: $(Build.SourcesDirectory)/front/
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: 'front/'
+          customCommand: 'ci --cache $(npm_config_cache)'
         displayName: "Install NPM"
 
       - script:  |

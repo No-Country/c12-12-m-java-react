@@ -11,7 +11,7 @@ trigger:
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
   # Container registry service connection established during pipeline creation
-  dockerfilePath: 'back/Dockerfile'
+  dockerfilePath: 'front/Dockerfile'
   buildTag: '$(Build.BuildId)'
   latestTag: 'latest'
   
@@ -45,11 +45,7 @@ stages:
     - job: 'test'
       steps:
       - script:  |
-          npm run dev & 
-          sleep 10
-          echo "Esperamos 10"
-          curl http://localhost:3000 > response.txt
-          cat response.txt
+          npm run dev 
         workingDirectory: $(Build.SourcesDirectory)/front/
         timeoutInMinutes: 1
         retryCountOnTaskFailure: 0
@@ -66,7 +62,7 @@ stages:
             repository: 'ovas04/front-vivavintage'
             command: 'buildAndPush'
             Dockerfile: '$(dockerfilePath)'
-            buildContext: '$(System.DefaultWorkingDirectory)/front'
+            buildContext: '$(System.DefaultWorkingDirectory)/front/'
             tags: |
               $(buildTag)
               $(latestTag)

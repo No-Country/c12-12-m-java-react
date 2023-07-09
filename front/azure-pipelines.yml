@@ -54,7 +54,7 @@ stages:
             exit 1
           fi
         failOnStderr: true
-        workingDirectory: $(Build.SourcesDirectory)
+        workingDirectory: $(Build.SourcesDirectory)/front/
         condition: succeeded()
         continueOnError: false
         target: host

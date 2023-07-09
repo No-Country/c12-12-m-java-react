@@ -55,7 +55,9 @@ stages:
 
       - script:  |
           npm run dev &
+          sleep 4
           response=$(curl -X GET -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+          echo $response
           if [[ "$response" -eq 200 ]]; then
             echo "Request was successful"
           else

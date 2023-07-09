@@ -32,6 +32,7 @@ stages:
         displayName: "Install NPM"
 
       - script: npm run dev
+        workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Build App"
 
   - stage: 'Test'

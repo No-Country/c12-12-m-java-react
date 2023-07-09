@@ -29,6 +29,7 @@ stages:
         displayName: "Install Node.js"
 
       - script: npm install
+        workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Install NPM"
 
       - script: pwd; npm run dev

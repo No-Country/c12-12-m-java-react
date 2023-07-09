@@ -45,9 +45,11 @@ stages:
     - job: 'test'
       steps:
       - script:  |
-          node -v
-          npm -v
           npm run dev & 
+          sleep 10
+          echo "Esperamos 10"
+          curl http://localhost:3000 > response.txt
+          cat response.txt
         workingDirectory: $(Build.SourcesDirectory)/front/
         timeoutInMinutes: 1
         retryCountOnTaskFailure: 0

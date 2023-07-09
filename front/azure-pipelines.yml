@@ -45,6 +45,8 @@ stages:
     - job: 'test'
       steps:
       - script:  |
+          node -v
+          npm -v
           npm run dev & 
           sleep 15
           echo "Esperamos 10"

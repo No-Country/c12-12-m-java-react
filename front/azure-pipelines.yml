@@ -33,9 +33,11 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Install NPM"
 
-      - script: pwd; npm run dev
+      - script:  npm run dev
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Build App"
+        timeoutInMinutes: 0.5 # Wait 30 seg to valid successfull build   
+        failOnStderr: false
 
   - stage: 'Test'
     displayName: 'Test React App'

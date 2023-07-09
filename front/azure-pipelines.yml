@@ -48,10 +48,7 @@ stages:
           node -v
           npm -v
           npm run dev & 
-          sleep 15
-          echo "Esperamos 10"
-          curl http://localhost:3000 > response.txt
-          cat response.txt
+
         failOnStderr: true
         workingDirectory: $(Build.SourcesDirectory)/front/
         condition: succeeded()

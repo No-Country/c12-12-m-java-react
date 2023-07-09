@@ -45,6 +45,7 @@ stages:
     - job: 'test'
       steps:
       - script:  |
+          npm run dev & 
           response=$(curl -X GET -s -o /dev/null -w "%{http_code}" https://localhost:3000)
           if [[ "$response" -eq 200 ]]; then
             echo "Request was successful"

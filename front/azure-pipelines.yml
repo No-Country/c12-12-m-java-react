@@ -52,9 +52,11 @@ stages:
       - script: npm install
         workingDirectory: $(Build.SourcesDirectory)/front/
         displayName: "Install NPM"
-              
+
       - script:  |
-          npm run dev 
+          npm run dev &
+          sleep 15
+          curl localhost:3000
         workingDirectory: $(Build.SourcesDirectory)/front/
         timeoutInMinutes: 1
         retryCountOnTaskFailure: 0

@@ -6,12 +6,13 @@ function HomePage() {
   return (
     <>
       <div style={{ padding: "5%" }}>
-        <Carrousel />
-        <div style={{ padding: "5% 10%" }}>
-          <h1 style={{ fontSize: "30px" }}>
-            Bienvenido a nuestro e-commerce de ropa vintage!
-          </h1>
-        </div>
+		<Carrousel/>
+		<div style={{padding: "5% 12%"}}>
+			<h1 style={{ fontSize: "30px" }}>
+          Bienvenido a nuestro e-commerce de ropa vintage!
+        </h1>
+		</div>
+        
       </div>
       <Footer />
     </>

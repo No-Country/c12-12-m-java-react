@@ -7,10 +7,6 @@ import "./Header.scss";
 const Header = ({ toggleDrawer }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // const toggleDrawer = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  //   console.log(isDropdownOpen);
-  // };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -33,12 +29,12 @@ const Header = ({ toggleDrawer }) => {
           Home
         </a>
         <a href="/cart" className="header__links-link">
-          <FaShoppingCart className="header__link-icon" size={24} />
+          <FaShoppingCart className="header__link-icon" size={26} />
         </a>
 
         {/* Icono de avatar de usuario */}
         <div className="avatar" onClick={toggleDropdown}>
-          <FaUserCircle size={24} />
+          <FaUserCircle id="avatar-icon" size={26} />
         </div>
 
         {/* Dropdown */}

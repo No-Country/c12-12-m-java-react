@@ -18,22 +18,22 @@ const Drawer = ({ isOpen }) => {
       <div className="drawer__content">
         <ul className="drawer__menu">
           <li className="drawer__menu-item">
-          <Link to="/camperas">Camperas</Link>
+          <Link to="categoria/camperas">Camperas</Link>
         </li>
           <li className="drawer__menu-item">
-          <Link to="/pantalones">Pantalones</Link>
+          <Link to="categoria/pantalones">Pantalones</Link>
             </li>
           <li className="drawer__menu-item">
-          <Link to="/camisas-remeras">Camisas / Remeras</Link>
+          <Link to="categoria/camisas-remeras">Camisas / Remeras</Link>
             </li>
           <li className="drawer__menu-item">
-          <Link to="/calzados">Calzados</Link>
+          <Link to="categoria/calzados">Calzados</Link>
             </li>
           <li className="drawer__menu-item">
-          <Link to="/accesorios">Accesorios</Link>
+          <Link to="categoria/accesorios">Accesorios</Link>
             </li>
           <li className="drawer__menu-item">
-          <Link to="/sombreros">Sombreros</Link>
+          <Link to="categoria/sombreros">Sombreros</Link>
             </li>
         </ul>
       </div>

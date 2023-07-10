@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const errorMessages = {
   requiredFields: "All fields are required",
   shortName: "Please enter a name with more than 5 characters",
@@ -25,6 +26,7 @@ export const errorMessages = {
   invalidCredentials: "Invalid Credentials",
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const toastOptions = {
   autoClose: 1200,
   theme: "colored",
@@ -33,6 +35,7 @@ export const toastOptions = {
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+  // eslint-disable-next-line react-refresh/only-export-components
 export const validateCredentials = (credentials) => {
   if (!credentials.email && !credentials.fullName && !credentials.password) {
     return "requiredFields";

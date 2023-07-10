@@ -1,4 +1,4 @@
-let api = {
+export let api = {
     "categories": [
       {
         "name": "pantalones",

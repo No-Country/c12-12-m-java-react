@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdLockOutline } from "react-icons/md";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
-import {validateCredentials, errorMessages, toastOptions } from "./SignUp";
+import { validateCredentials, errorMessages, toastOptions } from "./SignUp";
 
 const SignIn = () => {
   const [credentials, setCredentials] = useState({
@@ -67,7 +67,7 @@ const SignIn = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "#1976d2" }}>
+        <Avatar sx={{ m: 1 }}>
           <MdLockOutline />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -109,6 +109,7 @@ const SignIn = () => {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
+            //
             label="Remember me"
           />
           <Button
@@ -132,7 +133,6 @@ const SignIn = () => {
               </Typography>
             </Grid>
             <Typography variant="body2">
-              
               Don&apos;t have an account?{" "}
               <Link
                 to="/sign-up"

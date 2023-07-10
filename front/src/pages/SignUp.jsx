@@ -48,7 +48,7 @@ export const validateCredentials = (credentials) => {
   } else {
     return "invalidCredentials";
   }
-}
+};
 
 function SignUp() {
   const [credentials, setCredentials] = useState({
@@ -93,7 +93,7 @@ function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#3874cb" }}>
+          <Avatar sx={{ m: 1 }}>
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

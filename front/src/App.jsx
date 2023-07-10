@@ -21,7 +21,6 @@ function App() {
       <Header toggleDrawer={toggleDrawer} />
       <Drawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
       <Router/>
-      {/* <ToastContainer /> */}
     </>
   );
 }

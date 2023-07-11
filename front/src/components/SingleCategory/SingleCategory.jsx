@@ -1,7 +1,7 @@
 import "./SingleCategory.scss";
-//import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-//import axios from 'axios'
+import axios from "axios";
 import { Container } from "@mui/system";
 //import { Box, Button, MenuItem, FormControl, Select } from '@mui/material'
 //import Loading from '../Components/loading/Loading'
@@ -10,76 +10,57 @@ import ProductCard from "../Card/Card";
 //import CopyRight from '../Components/CopyRight/CopyRight'
 
 const SingleCategory = () => {
-  // const [productData, setProductData] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
+  const [productData, setProductData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   // const [filterOption, setFilterOption] = useState('All')
   // const [title, setTitle] = useState('All')
   const { cat } = useParams();
+  let selectedCategory;
   const formattedName = cat.charAt(0).toUpperCase() + cat.slice(1);
 
-  let productData = [
-    {
-      name: "Campera Cuero",
-      image:
-        "https://www.eldon.com.ar/media/catalog/product/cache/2318891599dd6b7da7fbbfb553d20c24/2/5/25012023-25012023-25feb_eldon_kobe_605_copia.jpg",
-      price: "15.000",
-      rating: 2,
-      id: 1,
-    },
-    {
-      name: "Campera Jean",
-      image:
-        "https://www.eldon.com.ar/media/catalog/product/cache/2318891599dd6b7da7fbbfb553d20c24/2/5/25012023-25012023-25feb_eldon_kobe_605_copia.jpg",
-      price: "25.000",
-      rating: 3,
-      id: 2,
-    },
-    {
-      name: "Campera Corderoy",
-      image:
-        "https://www.eldon.com.ar/media/catalog/product/cache/2318891599dd6b7da7fbbfb553d20c24/2/5/25012023-25012023-25feb_eldon_kobe_605_copia.jpg",
-      price: "35.000",
-      rating: 1,
-      id: 3,
-    },
-  ];
+  if (cat === "pantalones") {
+    selectedCategory = "pants";
+  } else if (cat === "camisas-remeras") {
+    selectedCategory = "shirts";
+  } else if (cat === "sombreros") {
+    selectedCategory = "hats";
+  } else if (cat === "camperas") {
+    selectedCategory = "jackets";
+  } else if (cat === "accesorios") {
+    selectedCategory = "accesories";
+  } else if (cat === "calzados") {
+    selectedCategory = "shoes";
+  }
 
-  // useEffect(() => {
-  //     getCategoryProduct()
-  //     window.scroll(0, 0)
-  // }, [])
 
-  // const getCategoryProduct = async () => {
-  //     try {
-  //         setIsLoading(true)
-  //         const { data } = await axios.post(`${process.env.REACT_APP_PRODUCT_TYPE}`, { userType: cat })
-  //         setIsLoading(false)
-  //         setProductData(data)
+  useEffect(() => {
+    getCategoryProduct();
+    window.scroll(0, 0);
+  }, []);
 
-  //     } catch (error) {
-  //         console.log(error);
-  //     }
-  // }
+  useEffect(() => {
+    const filtrado = productData.filter(
+      (product) => product.category === selectedCategory
+    );
+    setFilteredProducts(filtrado);
+    //eslint-disable-next-line
+  }, [productData, cat]);
 
-  // const productFilter = []
+  const getCategoryProduct = async () => {
+    try {
+      setIsLoading(true);
+      
+      const { data } = await axios.get(
+        `https://apimocha.com/vivavintage/products`
+      );
 
-  // if (cat === 'book') {
-  //     productFilter.push('All', 'Scifi', 'Business', 'Mystery', 'Cookbooks', 'Accessories', 'Price Low To High', 'Price High To Low', 'High Rated', 'Low Rated')
-  // }
-  // else if (cat === 'cloths') {
-  //     productFilter.push('All', 'Men', 'Women', 'Price Low To High', 'Price High To Low', 'High Rated', 'Low Rated')
-  // }
-  // else if (cat === 'shoe') {
-  //     productFilter.push('All', 'Running', 'Football', 'Formal', 'Casual', 'Price Low To High', 'Price High To Low', 'High Rated', 'Low Rated')
-  // }
-  // else if (cat === 'electronics') {
-  //     productFilter.push('All', 'Monitor', 'SSD', 'HDD', 'Price Low To High', 'Price High To Low', 'High Rated', 'Low Rated')
-
-  // }
-  // else if (cat === 'jewelry') {
-  //     productFilter.push('All')
-
-  // }
+      setIsLoading(false);
+      setProductData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const handleChange = (e) => {
   //     setFilterOption(e.target.value.split(" ").join("").toLowerCase())
@@ -101,14 +82,15 @@ const SingleCategory = () => {
   //     getData()
   // }, [filterOption])
 
-  // const loading = isLoading ?
-  //     (
-  //         <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: "center", flexWrap: "wrap", paddingLeft: 10, paddingBottom: 20 }}>
-  //             <Loading /><Loading /><Loading /><Loading />
-  //             <Loading /><Loading /><Loading /><Loading />
-  //         </Container >
-  //     )
-  //     : ""
+  const loading = isLoading ? (
+    //   <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: "center", flexWrap: "wrap", paddingLeft: 10, paddingBottom: 20 }}>
+    //       <Loading /><Loading /><Loading /><Loading />
+    //       <Loading /><Loading /><Loading /><Loading />
+    //   </Container >
+    <div>LOADING...</div>
+  ) : (
+    ""
+  );
   return (
     <>
       <Container
@@ -144,7 +126,7 @@ const SingleCategory = () => {
                         </Box>
                     </FormControl>
                 </Box> */}
-        {/* {loading} */}
+        {loading}
         <Container
           maxWidth="xl"
           style={{
@@ -157,8 +139,8 @@ const SingleCategory = () => {
             width: "100%",
           }}
         >
-          {productData.map((prod) => (
-            <Link to={`/${cat}/${prod._id}`} key={prod._id} className="link">
+          {filteredProducts.map((prod) => (
+            <Link to={`/${cat}/${prod._id}`} key={prod.id} className="link">
               <ProductCard prod={prod} />
             </Link>
           ))}

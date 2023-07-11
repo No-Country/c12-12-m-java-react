@@ -15,6 +15,7 @@ function App() {
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <ToastContainer toastClassName='toastContainerBox' transition={Flip} position='top-center' />

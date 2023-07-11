@@ -7,6 +7,7 @@ trigger:
       - front/*
     exclude:
       - back/*
+pr: none
 
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm

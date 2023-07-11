@@ -140,7 +140,7 @@ const SingleCategory = () => {
           }}
         >
           {filteredProducts.map((prod) => (
-            <Link to={`/${cat}/${prod._id}`} key={prod.id} className="link">
+            <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
               <ProductCard prod={prod} />
             </Link>
           ))}

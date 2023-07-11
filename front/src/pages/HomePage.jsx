@@ -1,8 +1,10 @@
-//import Card from "../components/Card/Card";
 import Carrousel from "../components/Carrousel/Carrousel";
 import Footer from "../components/Footer/Footer";
+import { useSelector } from 'react-redux';
 
 function HomePage() {
+  const storeData = useSelector(state => state);
+  console.log("store", storeData)
   return (
     <>
       <div style={{ padding: "5%" }}>

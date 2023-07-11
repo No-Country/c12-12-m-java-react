@@ -2,16 +2,9 @@ import { Card, CardActionArea, CardActions, Rating, CardContent, Typography } fr
 import { Box } from '@mui/system';
 import './Card.scss';
 
-// let prod = {
-//     name: 'Campera de jean',
-//     image: 'https://www.eldon.com.ar/media/catalog/product/cache/2318891599dd6b7da7fbbfb553d20c24/2/5/25012023-25012023-25feb_eldon_kobe_605_copia.jpg',
-//     price: "20.000",
-//     rating: 3,
-
-// }
-
 
 export default function ProductCard({ prod }) {
+    const rating = Math.floor(Math.random() * 5) + 1;
     return (
         <Card className="main_card">
             <CardActionArea className="card_action">
@@ -29,7 +22,7 @@ export default function ProductCard({ prod }) {
                     ${prod.price}
                 </Typography>
                 <Typography >
-                    <Rating precision={0.5} name="read-only" value={prod.rating} readOnly />
+                    <Rating precision={0.5} name="read-only" value={rating} readOnly />
                 </Typography>
             </CardActions>
         </Card >

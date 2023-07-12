@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { FaBars, FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/deer.svg";
+import { Link } from "react-router-dom";
 
 import "./Header.scss";
 // eslint-disable-next-line react/prop-types
 const Header = ({ toggleDrawer }) => {
+  const state = useSelector((state) => state.handleCart);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -20,19 +23,24 @@ const Header = ({ toggleDrawer }) => {
         </button>
       </div>
       {/* <div className="header__logo"> */}
-        <a className="header__logo" href="/">
-          <h1 className="header__logo-text">Viva</h1>
-          <img src={logo} alt="Logo" className="header__logo-image" />
-          <h1 className="header__logo-text">Vintage</h1>
-        </a>
+      <Link className="header__logo" to="/">
+        <h1 className="header__logo-text">Viva</h1>
+        <img src={logo} alt="Logo" className="header__logo-image" />
+        <h1 className="header__logo-text">Vintage</h1>
+      </Link>
       {/* </div> */}
       <div className="header__links">
-        <a href="/" className="header__links-link">
+        <Link to="/" className="header__links-link">
           Home
-        </a>
-        <a href="/cart" className="header__links-link">
+        </Link>
+        <Link
+          to="/cart"
+          className="header__links-link"
+          style={{ display: "flex" }}
+        >
           <FaShoppingCart className="header__link-icon" size={26} />
-        </a>
+          <span>({state.length})</span>
+        </Link>
 
         {/* Icono de avatar de usuario */}
         <div className="avatar" onClick={toggleDropdown}>
@@ -42,12 +50,12 @@ const Header = ({ toggleDrawer }) => {
         {/* Dropdown */}
         {isDropdownOpen && (
           <div className="header__user-dropdown">
-            <a href="/sign-in" className="header__user-option">
+            <Link to="/sign-in" className="header__user-option">
               Log in
-            </a>
-            <a href="/sign-up" className="header__user-option">
+            </Link>
+            <Link to="/sign-up" className="header__user-option">
               Sign up
-            </a>
+            </Link>
           </div>
         )}
       </div>

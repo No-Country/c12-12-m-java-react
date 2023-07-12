@@ -1,4 +1,3 @@
-import React from "react";
 
 const Intro = () => {
   return (
@@ -18,6 +17,7 @@ const Intro = () => {
           }}
         >
           <h1
+            id="whyUs"
             style={{
               fontSize: "50px",
               textAlign: "center",
@@ -66,6 +66,7 @@ const Intro = () => {
           }}
         >
           <h1
+            id="about"
             style={{
               fontSize: "50px",
               textAlign: "center",

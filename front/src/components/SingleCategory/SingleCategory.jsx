@@ -1,6 +1,6 @@
 import "./SingleCategory.scss";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
 //import { Box, Button, MenuItem, FormControl, Select } from '@mui/material'
@@ -34,7 +34,6 @@ const SingleCategory = () => {
     selectedCategory = "shoes";
   }
 
-
   useEffect(() => {
     getCategoryProduct();
     window.scroll(0, 0);
@@ -51,7 +50,7 @@ const SingleCategory = () => {
   const getCategoryProduct = async () => {
     try {
       setIsLoading(true);
-      
+
       const { data } = await axios.get(
         `https://apimocha.com/vivavintage/products`
       );
@@ -96,15 +95,16 @@ const SingleCategory = () => {
       <Container
         maxWidth="xl"
         style={{
-          marginTop: 90,
+          paddingTop: "90px",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          backgroundColor: "#f2f2f2",
         }}
       >
-        <div className="row">
+        <div className="row" style={{marginBottom: "20px"}}>
           <div className="col-12">
-            <h2 className="display-5 text-center">{formattedName}</h2>
+            <h2 className="display-5 text-center" style={{marginBottom: '2%'}}>{formattedName}</h2>
             <hr />
           </div>
         </div>
@@ -140,9 +140,9 @@ const SingleCategory = () => {
           }}
         >
           {filteredProducts.map((prod) => (
-            <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
-              <ProductCard prod={prod} />
-            </Link>
+            // <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
+              <ProductCard prod={prod} cat={cat} key={prod.id}/>
+            // </Link>
           ))}
         </Container>
       </Container>

@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 40px;
+  padding-bottom: 0;
   background-color: #f2f2f2;
-  height: 50px;
+  height: 100px;
 
   &__menu {
     //margin-right: 10px;
@@ -36,8 +37,9 @@
     letter-spacing: 3px;
 
     &-image {
-      width: 25px;
+      width: 65px;
       margin-right: 8px;
+      margin-left: 8px;
     }
 
     &-text {
@@ -62,21 +64,19 @@
 
     &-link {
       text-decoration: none;
-      
+
       color: #818181;
       margin-right: 10px;
       &:hover {
-              text-decoration: underline;
-              color: #212429;
-            }
-      
+        text-decoration: underline;
+        color: #212429;
+      }
     }
   }
 
   &__user {
     position: relative;
     cursor: pointer;
-
 
     &-avatar {
       width: 35px;
@@ -88,13 +88,13 @@
       cursor: pointer;
       &:hover {
         //text-decoration: underline;
-        color: #212429;;
+        color: #212429;
       }
     }
 
     &-dropdown {
       position: absolute;
-      top: 50px;
+      top: 72px;
       right: 0;
       background-color: white;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -131,4 +131,8 @@
       color: #212429;
     }
   }
+}
+
+.header__logo:hover {
+  color: inherit;
 }

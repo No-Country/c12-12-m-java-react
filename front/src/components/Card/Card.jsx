@@ -1,9 +1,11 @@
 import { Card, CardActionArea, CardActions, Rating, CardContent, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import {capitalizeFirstLetter} from '../../utils/constants';
 import './Card.scss';
 
 
 export default function ProductCard({ prod }) {
+    const name = capitalizeFirstLetter(prod.name);
     const rating = Math.floor(Math.random() * 5) + 1;
     return (
         <Card className="main_card">
@@ -13,7 +15,7 @@ export default function ProductCard({ prod }) {
                 </Box>
                 <CardContent>
                     <Typography gutterBottom variant="h6" sx={{ textAlign: "center" }} id='title'>
-                        {prod.name.length > 20 ? prod.name.slice(0, 20) + '...' : prod.name}
+                        {name.length > 20 ? name.slice(0, 20) + '...' : name}
                     </Typography>
                 </CardContent>
             </CardActionArea>

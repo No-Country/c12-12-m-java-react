@@ -33,7 +33,6 @@ const SingleCategory = () => {
     selectedCategory = "shoes";
   }
 
-
   useEffect(() => {
     getCategoryProduct();
     window.scroll(0, 0);
@@ -50,7 +49,7 @@ const SingleCategory = () => {
   const getCategoryProduct = async () => {
     try {
       setIsLoading(true);
-      
+
       const { data } = await axios.get(
         `https://apimocha.com/vivavintage/products`
       );
@@ -96,13 +95,14 @@ const SingleCategory = () => {
       <Container
         maxWidth="xl"
         style={{
-          marginTop: 90,
+          paddingTop: "90px",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          backgroundColor: "#f2f2f2",
         }}
       >
-        <div className="row">
+        <div className="row" style={{marginBottom: "20px"}}>
           <div className="col-12">
             <h2 className="display-5 text-center">{formattedName}</h2>
             <hr />

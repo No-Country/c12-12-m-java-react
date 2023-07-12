@@ -7,7 +7,6 @@ import "./Header.scss";
 const Header = ({ toggleDrawer }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
     console.log(isDropdownOpen);
@@ -20,10 +19,13 @@ const Header = ({ toggleDrawer }) => {
           <FaBars className="header__menu-icon" />
         </button>
       </div>
-      <div className="header__logo">
-        <img src={logo} alt="Logo" className="header__logo-image" />
-        <h1 className="header__logo-text">VivaVintage</h1>
-      </div>
+      {/* <div className="header__logo"> */}
+        <a className="header__logo" href="/">
+          <h1 className="header__logo-text">Viva</h1>
+          <img src={logo} alt="Logo" className="header__logo-image" />
+          <h1 className="header__logo-text">Vintage</h1>
+        </a>
+      {/* </div> */}
       <div className="header__links">
         <a href="/" className="header__links-link">
           Home

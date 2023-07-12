@@ -1,6 +1,6 @@
 import "./SingleCategory.scss";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
 //import { Box, Button, MenuItem, FormControl, Select } from '@mui/material'
@@ -140,9 +140,9 @@ const SingleCategory = () => {
           }}
         >
           {filteredProducts.map((prod) => (
-            <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
-              <ProductCard prod={prod} />
-            </Link>
+            // <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
+              <ProductCard prod={prod} cat={cat} key={prod.id}/>
+            // </Link>
           ))}
         </Container>
       </Container>

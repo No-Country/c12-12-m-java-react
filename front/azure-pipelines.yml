@@ -52,7 +52,53 @@ stages:
   - stage: 'Test'
     displayName: 'Test React App'
     jobs:
-    - job: 'test'
+    - job: 'SonarCloud'
+      steps:
+      - checkout: self
+        fetchDepth: 0
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - task: Cache@2
+        inputs:
+          key: 'front/package-lock.json'
+          path: '$(npm_config_cache)'
+          cacheHitVar: 'npm_variable_cache'
+
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: 'front/'
+          customCommand: 'ci --cache $(npm_config_cache)'
+        displayName: "Install NPM"
+
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'SonarCloud'
+          organization: 'vivavintage'
+          scannerMode: 'MSBuild'
+          projectKey: 'oka040370_vivavintage'
+          projectName: 'vivavintage'
+        displayName: Prepare SonarCloud
+
+      - script:  npm run build
+        workingDirectory: $(Build.SourcesDirectory)/front/
+        displayName: "Build App"
+        timeoutInMinutes: 1
+        failOnStderr: false
+
+      - task: SonarCloudAnalyze@1
+
+      - task: SonarCloudPublish@1
+        inputs:
+          pollingTimeoutSec: '300'
+        displayName: SonarCloud
+
+      displayName: Test App with React (SAST)
+
+    - job: 'CurlTest'
       steps:
       - task: NodeTool@0
         inputs:
@@ -86,7 +132,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)/front/
         timeoutInMinutes: 1
         retryCountOnTaskFailure: 0
-        displayName: "Test App"
+        displayName: "Test App with Curl"
 
   - stage: 'Release_Docker_Hub'
     displayName: 'Release into DockerHub'

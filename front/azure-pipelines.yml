@@ -78,9 +78,11 @@ stages:
         inputs:
           SonarCloud: 'SonarCloud'
           organization: 'vivavintage'
-          scannerMode: 'MSBuild'
-          projectKey: 'oka040370_vivavintage'
-          projectName: 'vivavintage'
+          scannerMode: 'CLI'
+          configMode: 'manual'
+          cliProjectKey: 'oka040370_vivavintage'
+          cliProjectName: 'vivavintage'
+          cliSources: './front'
         displayName: Prepare SonarCloud
 
       - script:  npm run build

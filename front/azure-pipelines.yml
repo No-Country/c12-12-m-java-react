@@ -82,7 +82,7 @@ stages:
           configMode: 'manual'
           cliProjectKey: 'oka040370_vivavintage'
           cliProjectName: 'vivavintage'
-          cliSources: './front'
+          cliSources: './front/**'
         displayName: Prepare SonarCloud
 
       - script:  npm run build

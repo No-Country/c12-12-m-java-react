@@ -3,19 +3,16 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
-//import { Box, Button, MenuItem, FormControl, Select } from '@mui/material'
-import Loading from '../Loading';
-//import { BiFilterAlt } from 'react-icons/bi';
+import {Radio, RadioGroup, FormControlLabel, FormControl, FormLabel} from "@mui/material";
+import Loading from "../Loading";
 import ProductCard from "../Card/Card";
-import {capitalizeFirstLetter} from '../../utils/constants';
-
+import { capitalizeFirstLetter } from "../../utils/constants";
 
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [gender, setGender] = useState("all");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  // const [filterOption, setFilterOption] = useState('All')
-  // const [title, setTitle] = useState('All')
   const { cat } = useParams();
   let selectedCategory;
   const formattedName = capitalizeFirstLetter(cat);
@@ -34,18 +31,31 @@ const SingleCategory = () => {
     selectedCategory = "shoes";
   }
 
+  const handleGenreChange = (event) => {
+    const selectedGenre = event.target.value;
+    setGender(selectedGenre);
+  };
+
   useEffect(() => {
     getCategoryProduct();
     window.scroll(0, 0);
   }, []);
 
   useEffect(() => {
-    const filtrado = productData.filter(
-      (product) => product.category === selectedCategory
-    );
-    setFilteredProducts(filtrado);
-    //eslint-disable-next-line
-  }, [productData, cat]);
+    const filtered = productData.filter((product) => {
+      if (gender === "all") {
+        // Mostrar todos los productos sin importar el género
+        return product.category === selectedCategory;
+      } else {
+        // Filtrar por género seleccionado
+        return (
+          product.category === selectedCategory && product.clothing === gender
+        );
+      }
+    });
+
+    setFilteredProducts(filtered);
+  }, [productData, selectedCategory, gender]);
 
   const getCategoryProduct = async () => {
     try {
@@ -62,31 +72,44 @@ const SingleCategory = () => {
     }
   };
 
-  // const handleChange = (e) => {
-  //     setFilterOption(e.target.value.split(" ").join("").toLowerCase())
-  //     setTitle(e.target.value)
-  // }
-  // // pricelowtohigh
-  // // pricehightolow
-  // // highrated
-  // // lowrated
-
-  // const getData = async () => {
-  //     setIsLoading(true)
-  //     const filter = filterOption.toLowerCase()
-  //     const { data } = await axios.post(`${process.env.REACT_APP_PRODUCT_TYPE_CATEGORY_}`, { userType: cat, userCategory: filter })
-  //     setProductData(data)
-  //     setIsLoading(false)
-  // }
-  // useEffect(() => {
-  //     getData()
-  // }, [filterOption])
+  const RadioBtn = () => (
+    <FormControl style={{ marginLeft: "5%" }}>
+      <FormLabel id="demo-row-radio-buttons-group-label">Genero</FormLabel>
+      <RadioGroup
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue={gender}
+        name="row-radio-buttons-group"
+        onChange={handleGenreChange}
+        style={{ flexDirection: "row" }}
+      >
+        <FormControlLabel value="woman" control={<Radio />} label="Mujer" />
+        <FormControlLabel value="man" control={<Radio />} label="Hombre" />
+        <FormControlLabel value="all" control={<Radio />} label="Todos" />
+      </RadioGroup>
+    </FormControl>
+  );
 
   const loading = isLoading ? (
-      <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: "center", flexWrap: "wrap", paddingLeft: 10, paddingBottom: 20 }}>
-          <Loading /><Loading /><Loading /><Loading />
-          <Loading /><Loading /><Loading /><Loading />
-      </Container >
+    <Container
+      maxWidth="xl"
+      style={{
+        marginTop: 10,
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        paddingLeft: 10,
+        paddingBottom: 20,
+      }}
+    >
+      <Loading />
+      <Loading />
+      <Loading />
+      <Loading />
+      <Loading />
+      <Loading />
+      <Loading />
+      <Loading />
+    </Container>
   ) : (
     ""
   );
@@ -102,30 +125,18 @@ const SingleCategory = () => {
           backgroundColor: "#f2f2f2",
         }}
       >
-        <div className="row" style={{marginBottom: "20px"}}>
+        <div className="row" style={{ marginBottom: "20px" }}>
           <div className="col-12">
-            <h2 className="display-5 text-center" style={{marginBottom: '2%'}}>{formattedName}</h2>
+            <h2
+              className="display-5 text-center"
+              style={{ marginBottom: "2%" }}
+            >
+              {formattedName}
+            </h2>
             <hr />
           </div>
         </div>
-        {/* < Box sx={{ minWidth: 140 }}>
-                    <FormControl sx={{ width: 140 }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, width: "80vw" }}>
-                            <Button endIcon={<BiFilterAlt />}>Filters</Button>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={title}
-                                sx={{ width: 200 }}
-                                onChange={(e) => handleChange(e)}
-                            >
-                                {productFilter.map(prod => (
-                                    <MenuItem key={prod} value={prod}>{prod}</MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                    </FormControl>
-                </Box> */}
+        <RadioBtn />
         {loading}
         <Container
           maxWidth="xl"
@@ -140,9 +151,7 @@ const SingleCategory = () => {
           }}
         >
           {filteredProducts.map((prod) => (
-            // <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
-              <ProductCard prod={prod} cat={cat} key={prod.id}/>
-            // </Link>
+            <ProductCard prod={prod} cat={cat} key={prod.id} />
           ))}
         </Container>
       </Container>
@@ -151,4 +160,3 @@ const SingleCategory = () => {
 };
 
 export default SingleCategory;
-

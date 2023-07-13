@@ -12,7 +12,6 @@ const Header = ({ toggleDrawer }) => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-    console.log(isDropdownOpen);
   };
 
   return (
@@ -50,10 +49,10 @@ const Header = ({ toggleDrawer }) => {
         {/* Dropdown */}
         {isDropdownOpen && (
           <div className="header__user-dropdown">
-            <Link to="/sign-in" className="header__user-option">
+            <Link to="/sign-in" className="header__user-option" onClick={toggleDropdown}>
               Log in
             </Link>
-            <Link to="/sign-up" className="header__user-option">
+            <Link to="/sign-up" className="header__user-option" onClick={toggleDropdown}>
               Sign up
             </Link>
           </div>

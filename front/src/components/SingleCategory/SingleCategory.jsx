@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
 //import { Box, Button, MenuItem, FormControl, Select } from '@mui/material'
-//import Loading from '../Components/loading/Loading'
+import Loading from '../Loading';
 //import { BiFilterAlt } from 'react-icons/bi';
 import ProductCard from "../Card/Card";
-//import CopyRight from '../Components/CopyRight/CopyRight'
+import {capitalizeFirstLetter} from '../../utils/constants';
+
 
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
@@ -17,7 +18,7 @@ const SingleCategory = () => {
   // const [title, setTitle] = useState('All')
   const { cat } = useParams();
   let selectedCategory;
-  const formattedName = cat.charAt(0).toUpperCase() + cat.slice(1);
+  const formattedName = capitalizeFirstLetter(cat);
 
   if (cat === "pantalones") {
     selectedCategory = "pants";
@@ -82,11 +83,10 @@ const SingleCategory = () => {
   // }, [filterOption])
 
   const loading = isLoading ? (
-    //   <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: "center", flexWrap: "wrap", paddingLeft: 10, paddingBottom: 20 }}>
-    //       <Loading /><Loading /><Loading /><Loading />
-    //       <Loading /><Loading /><Loading /><Loading />
-    //   </Container >
-    <div>LOADING...</div>
+      <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: "center", flexWrap: "wrap", paddingLeft: 10, paddingBottom: 20 }}>
+          <Loading /><Loading /><Loading /><Loading />
+          <Loading /><Loading /><Loading /><Loading />
+      </Container >
   ) : (
     ""
   );
@@ -104,7 +104,7 @@ const SingleCategory = () => {
       >
         <div className="row" style={{marginBottom: "20px"}}>
           <div className="col-12">
-            <h2 className="display-5 text-center">{formattedName}</h2>
+            <h2 className="display-5 text-center" style={{marginBottom: '2%'}}>{formattedName}</h2>
             <hr />
           </div>
         </div>
@@ -146,11 +146,9 @@ const SingleCategory = () => {
           ))}
         </Container>
       </Container>
-      {/* <CopyRight sx={{ mt: 8, mb: 10 }} /> */}
     </>
   );
 };
 
 export default SingleCategory;
 
-//

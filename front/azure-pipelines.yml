@@ -99,6 +99,7 @@ stages:
         displayName: SonarCloud
 
       displayName: Test App with React (SAST)
+      timeoutInMinutes: 4
 
     - job: 'CurlTest'
       steps:
@@ -135,6 +136,7 @@ stages:
         timeoutInMinutes: 1
         retryCountOnTaskFailure: 0
         displayName: "Test App with Curl"
+      timeoutInMinutes: 4
 
   - stage: 'Release_Docker_Hub'
     displayName: 'Release into DockerHub'

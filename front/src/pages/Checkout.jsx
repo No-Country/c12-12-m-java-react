@@ -275,11 +275,10 @@ const Checkout = () => {
   };
   return (
     <>
-      <div className="container my-3 py-3">
-        <h1 className="text-center">Checkout</h1>
+      <div className="container my-3 py-3" >
+        <h1 className="text-center" style={{marginBottom: '1%', fontSize: '20px'}}>Checkout</h1>
         <hr />
         {state.length ? <ShowCheckout /> : <EmptyCart />}
-        <ShowCheckout />
       </div>
     </>
   );

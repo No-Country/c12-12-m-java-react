@@ -16,10 +16,11 @@ function Router() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route exact path="/:cat/:id" element={<UnderConstruction/>} />
-        <Route exact path="/categoria/:cat" element={<SingleCategory/>} />
+        <Route exact path="/:cat/:id" element={<UnderConstruction />} />
+        <Route exact path="/categoria/:cat" element={<SingleCategory />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<UnderConstruction />} />
+        <Route path="/forgotpassword" element={<UnderConstruction />} />
       </Routes>
     </Provider>
   );

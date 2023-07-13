@@ -76,6 +76,7 @@ stages:
             mavenAuthenticateFeed: true
             options: "-X -P azure_artifacts $(MAVEN_OPTS)"
           displayName: Test App
+      timeoutInMinutes: 4
 
     - job: 'SonarCloud'
       steps:
@@ -119,6 +120,7 @@ stages:
           displayName: Publish Results
           inputs:
             pollingTimeoutSec: '300'
+      timeoutInMinutes: 5
 
   - stage: 'Release_Docker_Hub'
     displayName: 'Release into DockerHub'

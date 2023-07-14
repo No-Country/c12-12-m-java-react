@@ -20,7 +20,8 @@ function Router() {
         <Route exact path="/:cat/:id" element={<ProductDetail/>} />
         <Route exact path="/categoria/:cat" element={<SingleCategory/>} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout" element={<UnderConstruction />} />
+        <Route path="/forgotpassword" element={<UnderConstruction />} />
       </Routes>
     </Provider>
   );

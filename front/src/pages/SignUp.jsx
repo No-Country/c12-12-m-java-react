@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -35,24 +36,24 @@ export const toastOptions = {
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  // eslint-disable-next-line react-refresh/only-export-components
+// eslint-disable-next-line react-refresh/only-export-components
 export const validateCredentials = (credentials) => {
-  if (!credentials.email && !credentials.fullName && !credentials.password) {
+  if (!credentials.email && !credentials.userName && !credentials.password) {
     return "requiredFields";
-  } else if (credentials.fullName.length <= 5) {
+  } else if (credentials.userName.length <= 5) {
     return "shortName";
   } else if (!emailRegex.test(credentials.email)) {
     return "invalidEmail";
   } else if (credentials.password.length < 5) {
     return "shortPassword";
-  } else {
-    return "invalidCredentials";
-  }
+  } 
 };
 
 function SignUp() {
   const [credentials, setCredentials] = useState({
-    fullName: "",
+    userName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -67,18 +68,40 @@ function SignUp() {
   };
 
   const handleSubmit = async (e) => {
+    console.log("user", credentials);
     e.preventDefault();
 
-    try {
-      const errorMessage = validateCredentials(credentials);
+    const errorMessage = validateCredentials(credentials);
 
-      if (errorMessage) {
-        toast.error(errorMessages[errorMessage], toastOptions);
-      } else {
-        toast.error(errorMessages.invalidCredentials, toastOptions);
-      }
-    } catch (error) {
-      toast.error(errorMessages.invalidCredentials, toastOptions);
+    if (errorMessage) {
+      toast.error(errorMessages[errorMessage], toastOptions);
+    } else {
+      axios
+        .post("/api/register", credentials)
+        .then((response) => {
+          console.log(response);
+          // Respuesta exitosa del servidor
+          //setSuccessMessage('Registration successful!'); // Mostrar mensaje de éxito al usuario
+          //setErrorMessage(''); // Limpiar mensaje de error, si lo hay
+          setCredentials({
+            userName: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+          }); // Limpiar campos del formulario
+        })
+        .catch((error) => {
+          // Error en la solicitud o respuesta del servidor
+          if (error.response) {
+            // Respuesta de error del servidor
+            toast.error(error.response.data.message); // Mostrar mensaje de error al usuario
+            toast.error(errorMessages.invalidCredentials, toastOptions);
+          } else {
+            // Error en la solicitud
+            toast.error(errorMessages.invalidCredentials, toastOptions);
+          }
+        });
     }
   };
 
@@ -109,12 +132,36 @@ function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="fullName"
+                  name="userName"
                   required
                   fullWidth
-                  id="fullName"
-                  label="Full Name"
+                  id="userName"
+                  label="User Name"
                   autoFocus
+                  value={credentials.userName}
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="first-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  value={credentials.fullName}
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="last-name"
+                  name="lastName"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
                   value={credentials.fullName}
                   onChange={handleOnChange}
                 />

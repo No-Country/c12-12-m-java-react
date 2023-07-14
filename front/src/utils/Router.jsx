@@ -8,6 +8,7 @@ import Checkout from "../pages/Checkout";
 import UnderConstruction from "../pages/UnderConstruction/UnderConstruction";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import ProductDetail from "../pages/ProductDetail";
 
 function Router() {
   return (
@@ -16,7 +17,7 @@ function Router() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route exact path="/:cat/:id" element={<UnderConstruction/>} />
+        <Route exact path="/:cat/:id" element={<ProductDetail/>} />
         <Route exact path="/categoria/:cat" element={<SingleCategory/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />

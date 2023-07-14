@@ -11,7 +11,10 @@ import { capitalizeFirstLetter } from "../../utils/constants";
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [gender, setGender] = useState("all");
+  const [gender, setGender] = useState(() => {
+    const storedGender = localStorage.getItem('gender');
+    return storedGender ? storedGender : 'all';
+  });
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { cat } = useParams();
   let selectedCategory;
@@ -56,6 +59,10 @@ const SingleCategory = () => {
 
     setFilteredProducts(filtered);
   }, [productData, selectedCategory, gender]);
+
+  useEffect(() => {
+    localStorage.setItem('gender', gender);
+  }, [gender]);
 
   const getCategoryProduct = async () => {
     try {

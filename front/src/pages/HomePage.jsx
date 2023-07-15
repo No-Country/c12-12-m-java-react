@@ -1,5 +1,4 @@
 import Carrousel from "../components/Carrousel/Carrousel";
-import Footer from "../components/Footer/Footer";
 import Intro from "../components/Intro/Intro";
 import { useSelector } from "react-redux";
 
@@ -26,7 +25,6 @@ function HomePage() {
       </div>
       <Carrousel />
       <Intro />
-      <Footer />
     </>
   );
 }

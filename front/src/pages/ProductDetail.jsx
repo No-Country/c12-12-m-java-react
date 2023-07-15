@@ -14,7 +14,6 @@ import ShippingCard from "../components/ProductDetails/ShippingCard/ShippingCard
 import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
-import Footer from "../components/Footer/Footer";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -112,7 +111,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

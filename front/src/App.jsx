@@ -9,6 +9,7 @@ import Drawer from "./components/Drawer/Drawer";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./App.css";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         <Header toggleDrawer={toggleDrawer} />
         <Drawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
         <Router />
+        <Footer />
       </Provider>
     </>
   );

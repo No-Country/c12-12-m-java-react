@@ -13,8 +13,9 @@ const Header = ({ toggleDrawer }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+console.log("state", state)
   return (
+    
     <header className="header px-[18px] md:px-[40px]">
       <div className="header__menu w-[10px] md:w-1/5">
         <button className="header__menu-button" onClick={toggleDrawer}>
@@ -38,7 +39,7 @@ const Header = ({ toggleDrawer }) => {
           style={{ display: "flex" }}
         >
           <FaShoppingCart className="header__link-icon" size={26} />
-          <span className="absolute top-9 right-16 md:right-[86px] rounded-full bg-white w-[20px] items-center place-content-center flex text-sm font-bold">{state.length}</span>
+          <span className="absolute top-9 right-16 md:right-[86px] rounded-full bg-white w-[20px] items-center place-content-center flex text-sm font-bold">{state.totalQuantity}</span>
         </Link>
 
         {/* Icono de avatar de usuario */}

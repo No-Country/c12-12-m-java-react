@@ -8,7 +8,6 @@ import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer/Drawer";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import "./App.css";
 import Footer from "./components/Footer/Footer";
 
 function App() {

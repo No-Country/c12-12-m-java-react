@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
-function Quantity({ price }) {
+function Quantity({ price, onQuantityChange }) {
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrease = () => {
-    setQuantity(quantity + 1);
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    onQuantityChange(newQuantity)
   };
 
   const handleDecrease = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      onQuantityChange(newQuantity);
     }
   };
 

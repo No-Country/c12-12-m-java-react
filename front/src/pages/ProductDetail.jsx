@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { IoBagCheckOutline } from "react-icons/io5";
-
 import Loading from "../components/Loading";
 import ImageProduct from "../components/ProductDetails/ImageProduct/ImageProduct";
 import Size from "../components/ProductDetails/Size/Size";
@@ -14,11 +13,36 @@ import ShippingCard from "../components/ProductDetails/ShippingCard/ShippingCard
 import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
+import { useDispatch } from "react-redux";
+import { addCart } from "../redux/action/index";
 
 export default function ProductDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const rating = Math.floor(Math.random() * 5) + 1;
+  const dispatch = useDispatch();
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+ 
+
+  const handleQuantityChange = (newQuantity) => {
+    setSelectedQuantity(newQuantity);
+    console.log(selectedQuantity, "cantidad");
+  };
+
+  const addProduct = (prod, quantity) => {
+    const addProductRecursive = (remainingQuantity) => {
+      if (remainingQuantity > 0) {
+        dispatch(addCart(prod));
+        addProductRecursive(remainingQuantity - 1);
+      } else {
+        console.log("acccca")
+         navigate("/cart");
+      }
+    };
+
+    addProductRecursive(quantity);
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -65,7 +89,6 @@ export default function ProductDetail() {
     <>
       <div className="py-5 px-3 md:px-40 bg-[#f2f2f2]">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-
           <ImageProduct image={product.image} name={product.name} />
 
           <div className="flex flex-col gap-4">
@@ -92,15 +115,18 @@ export default function ProductDetail() {
               ))}
             </Size>
             <ShippingCard />
-            <Quantity price={product.price} />
+            <Quantity
+              price={product.price}
+              onQuantityChange={handleQuantityChange}
+            />
 
             <div className="flex flex-wrap place-content-center md:place-content-start gap-4">
-              <Link to="/cart">
-                <ButtonTo
-                  icon={<MdOutlineAddShoppingCart size={20} />}
-                  name="add to cart"
-                />
-              </Link>
+              <ButtonTo
+                icon={<MdOutlineAddShoppingCart size={20} />}
+                name="add to cart"
+                onButtonClick={() => addProduct(product, selectedQuantity)}
+              />
+
               <Link to="/checkout">
                 <ButtonTo
                   icon={<IoBagCheckOutline size={20} />}

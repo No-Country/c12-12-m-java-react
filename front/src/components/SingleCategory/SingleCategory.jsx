@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
-import {Radio, RadioGroup, FormControlLabel, FormControl, FormLabel} from "@mui/material";
 import Loading from "../Loading";
 import ProductCard from "../Card/Card";
+import RadioBtn from "../RadioBtn";
 import { capitalizeFirstLetter } from "../../utils/constants";
 
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [gender, setGender] = useState(() => {
-    const storedGender = localStorage.getItem('gender');
-    return storedGender ? storedGender : 'all';
+    const storedGender = localStorage.getItem("gender");
+    return storedGender ? storedGender : "all";
   });
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { cat } = useParams();
@@ -61,7 +61,7 @@ const SingleCategory = () => {
   }, [productData, selectedCategory, gender]);
 
   useEffect(() => {
-    localStorage.setItem('gender', gender);
+    localStorage.setItem("gender", gender);
   }, [gender]);
 
   const getCategoryProduct = async () => {
@@ -78,23 +78,6 @@ const SingleCategory = () => {
       console.log(error);
     }
   };
-
-  const RadioBtn = () => (
-    <FormControl style={{ marginLeft: "5%" }}>
-      <FormLabel id="demo-row-radio-buttons-group-label">Genero</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue={gender}
-        name="row-radio-buttons-group"
-        onChange={handleGenreChange}
-        style={{ flexDirection: "row" }}
-      >
-        <FormControlLabel value="woman" control={<Radio />} label="Mujer" />
-        <FormControlLabel value="man" control={<Radio />} label="Hombre" />
-        <FormControlLabel value="all" control={<Radio />} label="Todos" />
-      </RadioGroup>
-    </FormControl>
-  );
 
   const loading = isLoading ? (
     <Container
@@ -143,7 +126,7 @@ const SingleCategory = () => {
             <hr />
           </div>
         </div>
-        <RadioBtn />
+        <RadioBtn onChange={handleGenreChange} gender={gender} />
         {loading}
         <Container
           maxWidth="xl"

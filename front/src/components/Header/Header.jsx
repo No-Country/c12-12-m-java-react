@@ -13,23 +13,24 @@ const Header = ({ toggleDrawer }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+console.log("state", state)
   return (
-    <header className="header">
-      <div className="header__menu">
+    
+    <header className="header px-[18px] md:px-[40px]">
+      <div className="header__menu w-[10px] md:w-1/5">
         <button className="header__menu-button" onClick={toggleDrawer}>
           <FaBars className="header__menu-icon" />
         </button>
       </div>
       {/* <div className="header__logo"> */}
-      <Link className="header__logo" to="/">
+      <Link className="header__logo tracking-tight md:tracking-[3px] w-[45px] md:w-4/5" to="/">
         <h1 className="header__logo-text">Viva</h1>
         <img src={logo} alt="Logo" className="header__logo-image" />
         <h1 className="header__logo-text">Vintage</h1>
       </Link>
       {/* </div> */}
       <div className="header__links">
-        <Link to="/" className="header__links-link">
+        <Link to="/" className="header__links-link hidden md:block">
           Home
         </Link>
         <Link
@@ -38,11 +39,11 @@ const Header = ({ toggleDrawer }) => {
           style={{ display: "flex" }}
         >
           <FaShoppingCart className="header__link-icon" size={26} />
-          <span>({state.length})</span>
+          <span className="absolute top-9 right-16 md:right-[86px] rounded-full bg-white w-[20px] items-center place-content-center flex text-sm font-bold">{state.totalQuantity}</span>
         </Link>
 
         {/* Icono de avatar de usuario */}
-        <div className="avatar" onClick={toggleDropdown}>
+        <div className="avatar cursor-pointer" onClick={toggleDropdown}>
           <FaUserCircle id="avatar-icon" size={26} />
         </div>
 

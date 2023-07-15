@@ -6,7 +6,6 @@ import { Rating } from "@mui/material";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { IoBagCheckOutline } from "react-icons/io5";
-
 import Loading from "../components/Loading";
 import ImageProduct from "../components/ProductDetails/ImageProduct/ImageProduct";
 import Size from "../components/ProductDetails/Size/Size";
@@ -14,7 +13,6 @@ import ShippingCard from "../components/ProductDetails/ShippingCard/ShippingCard
 import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
-import Footer from "../components/Footer/Footer";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action/index";
 
@@ -139,7 +137,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

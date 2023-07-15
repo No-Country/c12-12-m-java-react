@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 function Quantity({ price, onQuantityChange }) {
   const [quantity, setQuantity] = useState(1);

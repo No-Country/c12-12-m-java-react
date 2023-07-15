@@ -30,10 +30,17 @@ public class Product {
   private String name;
 
   @Column(name = "image")
-  private String shortDescription;
+  private String image;
 
-  @Column(name = "description")
-  private String Description;
+
+  @Column(name = "category")
+  private String category;
+
+  @Column(name = "clothing")
+  private String clothing;
+
+  @Column(name = "Description")
+  private String description;
 
   @Column(name = "price", nullable = false)
   private Double price;

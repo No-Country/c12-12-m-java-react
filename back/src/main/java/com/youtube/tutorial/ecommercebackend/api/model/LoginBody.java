@@ -14,7 +14,7 @@ public class LoginBody {
 
   @NotNull
   @NotBlank
-  private String username;
+  private String email;
 
   @NotNull
   @NotBlank

@@ -59,7 +59,7 @@ public class UserService {
    * @return The authentication token. Null if the request was invalid.
    */
   public String loginUser(LoginBody loginBody) {
-    Optional<LocalUser> opUser = localUserDAO.findByUsernameIgnoreCase(loginBody.getUsername());
+    Optional<LocalUser> opUser = localUserDAO.findByEmailIgnoreCase(loginBody.getEmail());
     if (opUser.isPresent()) {
       LocalUser user = opUser.get();
       if (encryptionService.verifyPassword(loginBody.getPassword(), user.getPassword())) {

@@ -100,9 +100,9 @@ stages:
               # sonar.exclusions=**/*.bin
               sonar.projectKey=oka040370_vivavintage
               sonar.projectName=vivavintage
-              sonar.java.binaries=./target/classes
+              sonar.java.binaries=back/target/classes
         
-        - script: pwd && ls
+        - script: pwd && ls back/
           
         - task: Maven@3
           inputs:

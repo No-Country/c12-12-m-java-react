@@ -1,10 +1,6 @@
-import React from "react";
-import { AiOutlineYoutube } from "react-icons/ai";
-import { AiOutlineInstagram } from "react-icons/ai";
-import { AiOutlineFacebook } from "react-icons/ai";
-import { PiTwitterLogoLight } from "react-icons/pi";
-import { PiTiktokLogoLight } from "react-icons/pi";
-import { PiTelegramLogoLight } from "react-icons/pi";
+import { AiOutlineYoutube, AiOutlineInstagram, AiOutlineFacebook} from "react-icons/ai";
+import { PiTwitterLogoLight, PiTiktokLogoLight, PiTelegramLogoLight } from "react-icons/pi";
+
 
 function SocialNetworks() {
   return (

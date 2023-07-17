@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -13,7 +13,6 @@ import ShippingCard from "../components/ProductDetails/ShippingCard/ShippingCard
 import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
-import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action/index";
 
 export default function ProductDetail() {

@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/system";
-import Loading from "../Loading";
-import ProductCard from "../Card/Card";
-import RadioBtn from "../RadioBtn";
+import Loading from "../../components/Loading";
+import ProductCard from "../../components/Card/Card";
+import RadioBtn from "../../components/RadioBtn";
 import { capitalizeFirstLetter } from "../../utils/constants";
 
 const SingleCategory = () => {

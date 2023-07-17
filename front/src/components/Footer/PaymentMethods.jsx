@@ -1,7 +1,5 @@
-import React from "react";
-import { FaCcMastercard } from "react-icons/fa";
-import { FaCcVisa } from "react-icons/fa";
-import { FaCcPaypal } from "react-icons/fa";
+import { FaCcMastercard, FaCcVisa, FaCcPaypal } from "react-icons/fa";
+
 
 function PaymentMethods() {
   return (

@@ -21,7 +21,9 @@ import { Box, Container } from "@mui/system";
 // eslint-disable-next-line react-refresh/only-export-components
 export const errorMessages = {
   requiredFields: "All fields are required",
-  shortName: "Please enter a name with more than 5 characters",
+  shortUserName: "Please enter a User Name with more than 5 characters",
+  shortFirstName: "Please enter a First Name with more than 5 characters",
+  shortLastName: "Please enter a Last Name with more than 5 characters",
   invalidEmail: "Please enter a valid email",
   shortPassword: "Please enter a password with more than 5 characters",
   invalidCredentials: "Invalid Credentials",
@@ -35,12 +37,18 @@ export const toastOptions = {
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const validateCredentials = (credentials) => {
-  if (!credentials.email && !credentials.userName && !credentials.password) {
+  if (!credentials.email || !credentials.userName || !credentials.firstName || !credentials.lastName || !credentials.password) {
     return "requiredFields";
   } else if (credentials.userName.length <= 5) {
-    return "shortName";
+    return "shortUserName";
+   } else if (credentials.firstName.length <= 5) {
+      return "shortFirstName";
+   } else if (credentials.lastName.length <= 5) {
+    return "shortLastName";   
   } else if (!emailRegex.test(credentials.email)) {
     return "invalidEmail";
   } else if (credentials.password.length < 5) {
@@ -58,6 +66,17 @@ function SignUp() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const registerUser = async (userData) => {
+    try {
+      const response = await axios.post('http://localhost:8080/auth/register', userData);
+      console.log('User registered successfully:', response.data);
+      // Realizar acciones adicionales después de registrar al usuario
+    } catch (error) {
+      console.error('Failed to register user:', error.response.data);
+      // Manejar el error de registro de usuario
+    }
+  };
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -75,32 +94,34 @@ function SignUp() {
     if (errorMessage) {
       toast.error(errorMessages[errorMessage], toastOptions);
     } else {
-      axios
-        .post("/api/register", credentials)
-        .then((response) => {
-          console.log(response);
-          // Respuesta exitosa del servidor
-          //setSuccessMessage('Registration successful!'); // Mostrar mensaje de éxito al usuario
-          //setErrorMessage(''); // Limpiar mensaje de error, si lo hay
-          setCredentials({
-            userName: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-          }); // Limpiar campos del formulario
-        })
-        .catch((error) => {
-          // Error en la solicitud o respuesta del servidor
-          if (error.response) {
-            // Respuesta de error del servidor
-            toast.error(error.response.data.message); // Mostrar mensaje de error al usuario
-            toast.error(errorMessages.invalidCredentials, toastOptions);
-          } else {
-            // Error en la solicitud
-            toast.error(errorMessages.invalidCredentials, toastOptions);
-          }
-        });
+      registerUser(credentials)
+      console.log("credentials", credentials)
+      // axios
+      //   .post("/api/register", credentials)
+      //   .then((response) => {
+      //     console.log(response);
+      //     // Respuesta exitosa del servidor
+      //     //setSuccessMessage('Registration successful!'); // Mostrar mensaje de éxito al usuario
+      //     //setErrorMessage(''); // Limpiar mensaje de error, si lo hay
+      //     setCredentials({
+      //       userName: "",
+      //       firstName: "",
+      //       lastName: "",
+      //       email: "",
+      //       password: "",
+      //     }); // Limpiar campos del formulario
+      //   })
+      //   .catch((error) => {
+      //     // Error en la solicitud o respuesta del servidor
+      //     if (error.response) {
+      //       // Respuesta de error del servidor
+      //       toast.error(error.response.data.message); // Mostrar mensaje de error al usuario
+      //       toast.error(errorMessages.invalidCredentials, toastOptions);
+      //     } else {
+      //       // Error en la solicitud
+      //       toast.error(errorMessages.invalidCredentials, toastOptions);
+      //     }
+      //   });
     }
   };
 

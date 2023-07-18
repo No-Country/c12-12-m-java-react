@@ -12,17 +12,16 @@ import { Box } from "@mui/system";
 import "./Card.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart } from "../../redux/action";
-import {capitalizeFirstLetter} from '../../utils/constants';
+import { capitalizeFirstLetter } from "../../utils/constants";
 
 export default function ProductCard({ prod, cat }) {
-const name = capitalizeFirstLetter(prod.name);
-const rating = Math.floor(Math.random() * 5) + 1;  
+  const name = capitalizeFirstLetter(prod.name);
+  const rating = Math.floor(Math.random() * 5) + 1;
   const dispatch = useDispatch();
   const addProduct = (prod) => {
     dispatch(addCart(prod));
   };
   const state = useSelector((state) => state.handleCart);
-  console.log("state", state)
 
   return (
     <Card className="main_card">
@@ -43,9 +42,7 @@ const rating = Math.floor(Math.random() * 5) + 1;
               sx={{ textAlign: "center" }}
               id="title"
             >
-              {name.length > 20
-                ? name.slice(0, 20) + "..."
-                : name}
+              {name.length > 20 ? name.slice(0, 20) + "..." : name}
             </Typography>
           </CardContent>
         </CardActionArea>

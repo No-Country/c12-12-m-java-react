@@ -13,7 +13,6 @@ const Header = ({ toggleDrawer }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-console.log("state", state)
   return (
     
     <header className="header px-[18px] md:px-[40px]">

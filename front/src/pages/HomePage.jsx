@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 function HomePage() {
   const storeData = useSelector((state) => state);
-  console.log("store", storeData);
   return (
     <>
       <div style={{ padding: "5%", backgroundColor: "#f2f2f2" }}>

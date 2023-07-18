@@ -21,22 +21,10 @@ import SizeGuide from "../pages/FooterPages/SizeGuide";
 function Router() {
   return (
     <Provider store={store}>
-<<<<<<< HEAD
-      <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route exact path="/:cat/:id" element={<ProductDetail/>} />
-        <Route exact path="/categoria/:cat" element={<SingleCategory/>} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/forgotpassword" element={<UnderConstruction />} />
-      </Routes>
-=======
       <PersistGate loading={null} persistor={persistor}>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/register" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route exact path="/:cat/:id" element={<ProductDetail />} />
           <Route exact path="/categoria/:cat" element={<SingleCategory />} />
@@ -52,7 +40,6 @@ function Router() {
           <Route path="/size-guide" element={<SizeGuide />} />
         </Routes>
       </PersistGate>
->>>>>>> a2fdae7dc4518e69ae71d98519fa7f20eb9bec1f
     </Provider>
   );
 }

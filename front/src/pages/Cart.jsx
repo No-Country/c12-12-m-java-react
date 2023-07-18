@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetter } from "../utils/constants";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const EmptyCart = () => {
   return (
@@ -34,9 +35,6 @@ const ShowCart = ({ state, addItem, removeItem }) => {
           <div className="row d-flex justify-content-center my-4">
             <div className="col-md-8">
               <div className="card mb-4">
-                <div className="card-header py-3">
-                  <h5 className="mb-0">Item List</h5>
-                </div>
                 <div className="card-body">
                   {state.map((item) => {
                     return (
@@ -56,48 +54,33 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                             </div>
                           </div>
 
-                          <div className="col-lg-5 col-md-6">
-                            <p>
-                              <strong>
-                                {capitalizeFirstLetter(item.name)}
-                              </strong>
-                            </p>
-                          </div>
+                          <h3 className="col-lg-5 col-md-6 text-xl text-[#828282]">
+                            {capitalizeFirstLetter(item.name)}
+                          </h3>
 
                           <div className="col-lg-4 col-md-6">
-                            <div
-                              className="d-flex mb-4"
-                              style={{ maxWidth: "300px" }}
-                            >
+                            <div className="flex items-center justify-between px-3 gap-4 bg-white outline outline-1 py-1 w-[156px] h-[34px] rounded-full">
                               <button
-                                className="btn px-3"
                                 onClick={() => {
                                   removeItem(item);
                                 }}
                               >
-                                -
-                                <i className="fas fa-minus"></i>
+                                <AiOutlineMinus size={20} />
                               </button>
-
-                              <p className="mx-5">{item.qty}</p>
-
+                              <span className="text-lg font-mont">
+                                {item.qty}
+                              </span>
                               <button
-                                className="btn px-3"
                                 onClick={() => {
                                   addItem(item);
                                 }}
                               >
-                                +
-                                <i className="fas fa-plus"></i>
+                                <AiOutlinePlus size={20} />
                               </button>
                             </div>
-
-                            <p className="text-start text-md-center">
-                              <strong>
-                                <span className="text-muted">{item.qty}</span>{" "}
-                                x ${item.price}
-                              </strong>
-                            </p>
+                            <div className="text-lg font-mont flex items-center justify-center px-3 gap-4 bg-white py-1 w-[156px] h-[34px] rounded-full">
+                              {item.qty} x ${item.price}
+                            </div>
                           </div>
                         </div>
 
@@ -110,11 +93,8 @@ const ShowCart = ({ state, addItem, removeItem }) => {
             </div>
             <div className="col-md-4">
               <div className="card mb-4">
-                <div className="card-header py-3 bg-light">
-                  <h5 className="mb-0">Order Summary</h5>
-                </div>
                 <div className="card-body">
-                  <ul className="list-group list-group-flush">
+                  <ul className="text-base font-mont  list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                       Products ({totalItems})
                       <span>${Math.round(subtotal)}</span>
@@ -125,10 +105,14 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
-                        <strong>Total amount</strong>
+                        <strong className="text-base font-bold font-mont">
+                          Total amount
+                        </strong>
                       </div>
                       <span>
-                        <strong>${Math.round(subtotal + shipping)}</strong>
+                        <strong className="text-base font-bold font-mont">
+                          ${Math.round(subtotal + shipping)}
+                        </strong>
                       </span>
                     </li>
                   </ul>
@@ -162,8 +146,10 @@ const Cart = () => {
 
   return (
     <>
-      <div className="container my-3 py-3">
-        <h1 className="text-center" style={{ marginBottom: '1%', fontSize: '20px' }}>Cart</h1>
+      <div className="container" style={{ paddingTop: "90px" }}>
+        <h2 className="display-5 text-center" style={{ marginBottom: "2%" }}>
+          Cart{" "}
+        </h2>
         <hr />
         {state.length > 0 ? (
           <ShowCart state={state} addItem={addItem} removeItem={removeItem} />

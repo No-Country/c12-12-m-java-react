@@ -7,10 +7,7 @@ export default defineConfig({
   server:{
     host:true,
     strictPort: true,
-    port: 8000
-  },
-  watch: {
-    usePolling: true
+    port: 3000
   },
   build: {
     rollupOptions: {

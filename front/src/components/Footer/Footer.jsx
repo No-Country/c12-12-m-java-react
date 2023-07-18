@@ -15,11 +15,15 @@ function Footer() {
   return (
     <footer className="bg-[#212429] font-mont flex flex-col gap-5 text-white py-5 lg:px-20 sm:px-2">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <IconInformation icon={<BsTruck size={25} />} name="Shipping" />
-        <IconInformation
-          icon={<PiArrowCounterClockwiseBold size={25} />}
-          name="Returns & Exchanges"
-        />
+        <a href="/shipping-method" className="hover:text-gray-400">
+          <IconInformation icon={<BsTruck size={25} />} name="Shipping" />
+        </a>
+        <a href="/returns-and-exchanges" className="hover:text-gray-400">
+          <IconInformation
+            icon={<PiArrowCounterClockwiseBold size={25} />}
+            name="Returns & Exchanges"
+          />
+        </a>
         <IconInformation
           icon={<FiPhone size={25} />}
           name="+375 (29) 749-18-23"

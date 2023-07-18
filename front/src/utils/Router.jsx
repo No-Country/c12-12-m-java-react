@@ -15,7 +15,7 @@ function Router() {
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route exact path="/:cat/:id" element={<ProductDetail/>} />
         <Route exact path="/categoria/:cat" element={<SingleCategory/>} />

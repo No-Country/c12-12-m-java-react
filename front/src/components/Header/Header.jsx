@@ -52,7 +52,7 @@ const Header = ({ toggleDrawer }) => {
             <Link to="/sign-in" className="header__user-option" onClick={toggleDropdown}>
               Log in
             </Link>
-            <Link to="/sign-up" className="header__user-option" onClick={toggleDropdown}>
+            <Link to="/register" className="header__user-option" onClick={toggleDropdown}>
               Sign up
             </Link>
           </div>

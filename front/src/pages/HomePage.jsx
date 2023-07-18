@@ -6,18 +6,12 @@ function HomePage() {
   const storeData = useSelector((state) => state);
   return (
     <>
-      <div style={{ padding: "5%", backgroundColor: "#f2f2f2" }}>
+      <div className="p-[5%] bg-[#f2f2f2]">
         <div>
-          <h1
-            style={{
-              fontSize: "96px",
-              textAlign: "center",
-              marginBottom: "40px",
-            }}
-          >
+          <h1 className="text-5xl md:text-8xl text-center mb-[3%]">
             Bienvenido a VivaVintage
           </h1>
-          <p style={{ fontSize: "30px", textAlign: "center" }}>
+          <p className="text-base md:text-3xl text-center">
             The real old-fashion is not in the movies, but here
           </p>
         </div>

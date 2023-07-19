@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import "./Card.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCart } from "../../redux/action";
 import { capitalizeFirstLetter } from "../../utils/constants";
 
@@ -21,7 +21,6 @@ export default function ProductCard({ prod, cat }) {
   const addProduct = (prod) => {
     dispatch(addCart(prod));
   };
-  const state = useSelector((state) => state.handleCart);
 
   return (
     <Card className="main_card">

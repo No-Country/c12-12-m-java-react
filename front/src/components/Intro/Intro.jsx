@@ -19,7 +19,7 @@ const Intro = () => {
             id="whyUs"
             className="flex text-2xl md:text-5xl text-center mb-[50px] items-center justify-start w-[45%]"
           >
-            Why VivaVintage
+            Porqué VivaVintage
           </h2>
           <div className="md:text-3xl text-base w-[55%]">
             <ul style={{ listStyleType: "none" }}>
@@ -30,9 +30,9 @@ const Intro = () => {
                   marginBottom: "20px",
                 }}
               >
-                EXCLUSIVE STYLES
+                ESTILOS EXCLUSIVOS
                 <br />
-                timeless collection of vintage clothing
+                Colección atemporal de ropa vintage
               </li>
               <li
                 style={{
@@ -43,7 +43,7 @@ const Intro = () => {
               >
                 ECO-FRIENDLY
                 <br />
-                embrace sustainability
+                Abrazar la sostenibilidad
               </li>
               <li
                 style={{
@@ -52,14 +52,14 @@ const Intro = () => {
                   marginBottom: "20px",
                 }}
               >
-                PERSONALIZED
+                PERSONALIZADO
                 <br />
-                we are didicated to provide the best service for you
+                Nos dedicamos a proveer el mejor servicio a nuestros clientes
               </li>
               <li style={{ borderBottom: "1px solid grey", width: "83%" }}>
-                ALL SIZE
+                TODOS LOS TALLES
                 <br />
-                we believe in the perfect fit for everyone
+                Creemos en el ajuste perfecto para todos
               </li>
             </ul>
           </div>
@@ -83,15 +83,16 @@ const Intro = () => {
             id="about"
             className="flex text-2xl md:text-5xl text-center mb-[50px] items-center justify-start w-[45%]"
           >
-            About us
+            Sobre Nosotros
           </h2>
           <p className="md:text-3xl text-base w-[45%] text-justify">
-            Started by fashion enthusiasts at 2023, our vintage clothing store
-            transports you back in time with its stylishly curated collection.
-            We prioritize quality and authenticity. Each item in our collection
-            is carefully inspected to ensure that it meets our high standards.
-            We believe that embracing classic styles is a way to express your
-            unique taste.
+            Iniciado por entusiastas de la moda en 2023, nuestra tienda de ropa
+            vintage te transporta en el tiempo con su colección cuidadosamente
+            seleccionada y con estilo. Priorizamos la calidad y la autenticidad.
+            Cada artículo de nuestra colección es inspeccionado minuciosamente
+            para garantizar que cumpla con nuestros altos estándares. Creemos
+            que abrazar los estilos clásicos es una forma de expresar tu gusto
+            único.
           </p>
         </div>
       </div>

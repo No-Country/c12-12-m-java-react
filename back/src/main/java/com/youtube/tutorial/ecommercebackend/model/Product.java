@@ -29,8 +29,14 @@ public class Product {
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 
-  @Column(name = "image")
-  private String image;
+  @Column(name = "image1")
+  private String image1;
+
+  @Column(name = "image2")
+  private String image2;
+
+  @Column(name = "image3")
+  private String image3;
 
   @Column(name = "category")
   private String category;
@@ -38,11 +44,15 @@ public class Product {
   @Column(name = "clothing")
   private String clothing;
 
-  @Column(name = "Description")
+  @Column(name = "description")
   private String description;
 
   @Column(name = "price", nullable = false)
   private Double price;
+
+  @Column(name = "size")
+  private String size;
+
 
   @OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE, optional = false, orphanRemoval = true)
   private Inventory inventory;

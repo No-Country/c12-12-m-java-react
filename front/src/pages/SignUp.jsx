@@ -37,23 +37,27 @@ export const toastOptions = {
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const validateCredentials = (credentials) => {
-  if (!credentials.email || !credentials.userName || !credentials.firstName || !credentials.lastName || !credentials.password) {
+  if (
+    !credentials.email ||
+    !credentials.userName ||
+    !credentials.firstName ||
+    !credentials.lastName ||
+    !credentials.password
+  ) {
     return "requiredFields";
   } else if (credentials.userName.length <= 5) {
     return "shortUserName";
-   } else if (credentials.firstName.length <= 5) {
-      return "shortFirstName";
-   } else if (credentials.lastName.length <= 5) {
-    return "shortLastName";   
+  } else if (credentials.firstName.length <= 5) {
+    return "shortFirstName";
+  } else if (credentials.lastName.length <= 5) {
+    return "shortLastName";
   } else if (!emailRegex.test(credentials.email)) {
     return "invalidEmail";
   } else if (credentials.password.length < 5) {
     return "shortPassword";
-  } 
+  }
 };
 
 function SignUp() {
@@ -68,11 +72,14 @@ function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const registerUser = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:8080/auth/register', userData);
-      console.log('User registered successfully:', response);
+      const response = await axios.post(
+        "http://localhost:9090/auth/register",
+        userData
+      );
+      console.log("User registered successfully:", response);
       // Realizar acciones adicionales después de registrar al usuario
     } catch (error) {
-      console.error('Failed to register user:', error);
+      console.error("Failed to register user:", error);
       // Manejar el error de registro de usuario
     }
   };
@@ -94,8 +101,8 @@ function SignUp() {
     if (errorMessage) {
       toast.error(errorMessages[errorMessage], toastOptions);
     } else {
-      registerUser(credentials)
-      console.log("credentials", credentials)
+      registerUser(credentials);
+      console.log("credentials", credentials);
       // axios
       //   .post("/api/register", credentials)
       //   .then((response) => {

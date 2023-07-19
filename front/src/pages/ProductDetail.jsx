@@ -47,7 +47,8 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/product`
+          //`http://localhost:8080/product`
+          `https://apimocha.com/vivavintage/products`
         );
 
         const productData = response.data.find(

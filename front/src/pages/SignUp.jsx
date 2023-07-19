@@ -69,10 +69,10 @@ function SignUp() {
   const registerUser = async (userData) => {
     try {
       const response = await axios.post('http://localhost:8080/auth/register', userData);
-      console.log('User registered successfully:', response.data);
+      console.log('User registered successfully:', response);
       // Realizar acciones adicionales después de registrar al usuario
     } catch (error) {
-      console.error('Failed to register user:', error.response.data);
+      console.error('Failed to register user:', error);
       // Manejar el error de registro de usuario
     }
   };

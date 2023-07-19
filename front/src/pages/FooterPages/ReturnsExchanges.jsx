@@ -8,7 +8,7 @@ function ReturnsExchanges() {
     >
       <div className="flex flex-col gap-5">
         <h1 className="capitalize text-3xl md:text-5xl font-bold text-center underline underline-offset-8">
-          Returns & Exchanges
+          Devoluciones & Cambios
         </h1>
         <p>
           Estamos comprometidos para que tu pedido sea de tu agrado. Sin

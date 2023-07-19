@@ -8,7 +8,7 @@ function SizeGuide() {
     >
       <div className="flex flex-col gap-5">
         <h1 className="capitalize text-3xl md:text-5xl font-bold text-center underline underline-offset-8">
-          Size Guide
+          Guías de Tallas
         </h1>
 
         <div className="flex flex-col gap-4">

@@ -4,7 +4,7 @@ import { FaCcMastercard, FaCcVisa, FaCcPaypal } from "react-icons/fa";
 function PaymentMethods() {
   return (
     <div>
-      <h3 className="font-bold text-xl pb-4">Payment Methods</h3>
+      <h3 className="font-bold text-xl pb-4">Métodos de Pago</h3>
       <div className="flex flex-wrap md:flex-row gap-2 md:gap-4">
         <a
           href="https://www.mastercard.com.pe/es-pe.html"

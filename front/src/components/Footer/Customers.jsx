@@ -3,11 +3,11 @@ import React from "react";
 function Customers() {
   return (
     <div>
-      <h3 className="font-bold text-xl pb-4">Customers</h3>
+      <h3 className="font-bold text-xl pb-4">Clientes</h3>
       <ul className="text-sm flex flex-col gap-3">
         <li className="hover:underline underline-offset-8 transition">
           <a href="/size-guide" className="hover:text-gray-400">
-            Size Guide
+            Guía de Tallas
           </a>
         </li>
         <li className="hover:underline underline-offset-8 transition">
@@ -17,17 +17,17 @@ function Customers() {
         </li>
         <li className="hover:underline underline-offset-8 transition">
           <a href="/shipping-method" className="hover:text-gray-400">
-            Shipping Method
+            Métodos de Envío
           </a>
         </li>
         <li className="hover:underline underline-offset-8 transition">
           <a href="/gift-card" className="hover:text-gray-400">
-            Gift Card
+            Tarjetas de Regalo
           </a>
         </li>
         <li className="hover:underline underline-offset-8 transition">
           <a href="/returns-and-exchanges" className="hover:text-gray-400">
-            Returns & Exchanges
+            Devoluciones & Cambios
           </a>
         </li>
       </ul>

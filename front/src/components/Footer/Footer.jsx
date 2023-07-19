@@ -16,12 +16,12 @@ function Footer() {
     <footer className="bg-[#212429] font-mont flex flex-col gap-5 text-white py-5 lg:px-20 sm:px-2">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <a href="/shipping-method" className="hover:text-gray-400">
-          <IconInformation icon={<BsTruck size={25} />} name="Shipping" />
+          <IconInformation icon={<BsTruck size={25} />} name="Envío" />
         </a>
         <a href="/returns-and-exchanges" className="hover:text-gray-400">
           <IconInformation
             icon={<PiArrowCounterClockwiseBold size={25} />}
-            name="Returns & Exchanges"
+            name="Devoluciones & Cambios"
           />
         </a>
         <IconInformation

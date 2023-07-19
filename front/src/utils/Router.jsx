@@ -16,6 +16,12 @@ import GiftCard from "../pages/FooterPages/GiftCard";
 import ReturnsExchanges from "../pages/FooterPages/ReturnsExchanges";
 import Faq from "../pages/FooterPages/Faq";
 import SizeGuide from "../pages/FooterPages/SizeGuide";
+import OurStores from "../pages/FooterPages/OurStores";
+import AboutUs from "../pages/FooterPages/AboutUs";
+import WhyVivavintage from "../pages/FooterPages/WhyVivavintage";
+import TermsConditions from "../pages/FooterPages/TermsConditions";
+import Contact from "../pages/FooterPages/Contact";
+
 
 
 function Router() {
@@ -38,6 +44,11 @@ function Router() {
           <Route path="/returns-and-exchanges" element={<ReturnsExchanges />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/size-guide" element={<SizeGuide />} />
+          <Route path="/our-stores" element={<OurStores />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/why-vivavintage" element={<WhyVivavintage />} />
+          <Route path="/terms-and-conditions" element={<TermsConditions />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </PersistGate>
     </Provider>

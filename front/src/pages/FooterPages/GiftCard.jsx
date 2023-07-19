@@ -8,7 +8,7 @@ function GiftCard() {
   return (
     <div className="py-10 px-3 lg:px-80 flex justify-center flex-col gap-5 text-base md:text-lg bg-[#f2f2f2] font-mont" style={{ maxWidth: "60rem", margin: "0 auto" }}>
       <h1 className="capitalize text-3xl md:text-5xl font-bold text-center underline underline-offset-8">
-        Gift Card
+        Tarjetas de Regalo
       </h1>
       <div className="flex flex-col gap-4">
         <p>¡Regala momentos especiales con nuestras tarjetas de regalo!</p>

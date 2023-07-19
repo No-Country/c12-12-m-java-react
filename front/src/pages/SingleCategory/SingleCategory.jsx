@@ -13,8 +13,8 @@ const SingleCategory = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gender, setGender] = useState(() => {
     const storedGender = localStorage.getItem("gender");
-    return storedGender ? storedGender : "all";
-  });
+    return storedGender || "all";
+});
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { cat } = useParams();
   let selectedCategory;
@@ -69,8 +69,8 @@ const SingleCategory = () => {
       setIsLoading(true);
 
       const { data } = await axios.get(
-        //`https://apimocha.com/vivavintage/products`
-        `http://localhost:8080/product`
+        `https://apimocha.com/vivavintage/products`
+        //`http://localhost:8080/product`
       );
 
       setIsLoading(false);

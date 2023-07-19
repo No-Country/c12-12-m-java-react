@@ -1,9 +1,9 @@
 import Carrousel from "../components/Carrousel/Carrousel";
 import Intro from "../components/Intro/Intro";
-import { useSelector } from "react-redux";
+
 
 function HomePage() {
-  const storeData = useSelector((state) => state);
+  
   return (
     <>
       <div className="p-[5%] bg-[#f2f2f2]">
@@ -12,7 +12,7 @@ function HomePage() {
             Bienvenido a VivaVintage
           </h1>
           <p className="text-base md:text-3xl text-center">
-            The real old-fashion is not in the movies, but here
+          La verdadera moda antigua no está en las películas, sino aquí
           </p>
         </div>
       </div>

@@ -1,10 +1,6 @@
-import React from "react";
-
 import { BsTruck } from "react-icons/bs";
 import { PiArrowCounterClockwiseBold } from "react-icons/pi";
-import { FiPhone } from "react-icons/fi";
-import { FiMail } from "react-icons/fi";
-
+import { FiPhone, FiMail} from "react-icons/fi";
 import IconInformation from "./IconInformation";
 import Customers from "./Customers";
 import AboutUs from "./AboutUs";

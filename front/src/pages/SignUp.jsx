@@ -73,7 +73,7 @@ function SignUp() {
   const registerUser = async (userData) => {
     try {
       const response = await axios.post(
-        "http://localhost:9090/auth/register",
+        "http://backend:9090/auth/register",
         userData
       );
       console.log("User registered successfully:", response);

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
@@ -10,7 +10,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../redux/store";
 import ProductDetail from "../pages/ProductDetail";
-
 import ShippingMethod from "../pages/FooterPages/ShippingMethod";
 import GiftCard from "../pages/FooterPages/GiftCard";
 import ReturnsExchanges from "../pages/FooterPages/ReturnsExchanges";
@@ -21,10 +20,11 @@ import AboutUs from "../pages/FooterPages/AboutUs";
 import WhyVivavintage from "../pages/FooterPages/WhyVivavintage";
 import TermsConditions from "../pages/FooterPages/TermsConditions";
 import Contact from "../pages/FooterPages/Contact";
-
+import { useSelector } from "react-redux";
 
 
 function Router() {
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -35,9 +35,8 @@ function Router() {
           <Route exact path="/:cat/:id" element={<ProductDetail />} />
           <Route exact path="/categoria/:cat" element={<SingleCategory />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={isLoggedIn? <Checkout /> : <Navigate to="/sign-in" />}/>
           <Route path="/forgotpassword" element={<UnderConstruction />} />
-
           {/* Footer pages */}
           <Route path="/shipping-method" element={<ShippingMethod />} />
           <Route path="/gift-card" element={<GiftCard />} />

@@ -1,18 +1,27 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { FaBars, FaShoppingCart, FaUserCircle } from "react-icons/fa";
+import { useSelector, connect, useDispatch } from "react-redux";
+import { FaBars, FaShoppingCart, FaUserCircle, FaUserCheck } from "react-icons/fa";
 import logo from "../../assets/deer.svg";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../../redux/reducer/authSlice";
 
 import "./Header.scss";
 // eslint-disable-next-line react/prop-types
-const Header = ({ toggleDrawer }) => {
-  const state = useSelector((state) => state.handleCart);
+const Header = ({ toggleDrawer, logoutUser }) => {
+  const state = useSelector((state) => state);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const logOut = () => {
+    dispatch(logoutUser());
+    localStorage.removeItem("Authorization");
+    setIsDropdownOpen(false);
+  };
+
+  console.log("state!", state);
   return (
     <header className="header px-[18px] md:px-[40px]">
       <div className="header__menu w-[30px] md:w-1/5">
@@ -41,25 +50,36 @@ const Header = ({ toggleDrawer }) => {
         >
           <FaShoppingCart className="header__link-icon" size={26} />
           <span className="absolute top-9 right-16 md:right-[86px] rounded-full bg-white w-[20px] items-center place-content-center flex text-sm font-bold">
-            {state.totalQuantity}
+            {state.handleCart.totalQuantity}
           </span>
         </Link>
 
         {/* Icono de avatar de usuario */}
         <div className="avatar cursor-pointer" onClick={toggleDropdown}>
+        {state.authReducer.isLoggedIn ? (
+          <FaUserCheck id="avatar-icon" size={26} />
+        ) : (
           <FaUserCircle id="avatar-icon" size={26} />
+          )}
         </div>
 
         {/* Dropdown */}
         {isDropdownOpen && (
           <div className="header__user-dropdown">
-            <Link
-              to="/sign-in"
-              className="header__user-option"
-              onClick={toggleDropdown}
-            >
-              Log in
-            </Link>
+            {state.authReducer.isLoggedIn ? (
+              <Link to="/" className="header__user-option" onClick={logOut}>
+                Log Out
+              </Link>
+            ) : (
+              <Link
+                to="/sign-in"
+                className="header__user-option"
+                onClick={toggleDropdown}
+              >
+                Log In
+              </Link>
+            )}
+
             <Link
               to="/register"
               className="header__user-option"
@@ -74,4 +94,5 @@ const Header = ({ toggleDrawer }) => {
   );
 };
 
-export default Header;
+
+export default connect(null, { logoutUser })(Header);

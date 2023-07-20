@@ -69,8 +69,8 @@ const SingleCategory = () => {
       setIsLoading(true);
 
       const { data } = await axios.get(
-        // `https://apimocha.com/vivavintage/products`
-        `http://backend:9090/product`
+        `https://apimocha.com/vivavintage/products`
+        //`http://localhost:9090/product`
       );
 
       setIsLoading(false);

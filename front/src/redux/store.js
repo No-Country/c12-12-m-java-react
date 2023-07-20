@@ -12,8 +12,10 @@ import {
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import handleCart from "./reducer/handleCart";
+import authReducer from "./reducer/authSlice";
 const rootReducer = combineReducers({
   handleCart,
+  authReducer,
 });
 
 const persistConfig = {
@@ -24,7 +26,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: persistedReducer, 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import LockIcon from "@mui/icons-material/Lock";
@@ -25,7 +25,8 @@ export const errorMessages = {
   shortFirstName: "Please enter a First Name with more than 5 characters",
   shortLastName: "Please enter a Last Name with more than 5 characters",
   invalidEmail: "Please enter a valid email",
-  shortPassword: "Please enter a password with more than 5 characters",
+  shortPassword:
+    "Please enter a password with more than 5 characters with a capital letter and a number",
   invalidCredentials: "Invalid Credentials",
 };
 
@@ -35,19 +36,37 @@ export const toastOptions = {
   theme: "colored",
 };
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const hasWeakPassword = (pass) => {
+  // Longitud menor a 5
+  if (pass < 5) {
+    return true;
+  }
+
+  // Sin letra mayúscula
+  if (!/[A-Z]/.test(pass)) {
+    return true;
+  }
+
+  // Sin número
+  if (!/\d/.test(pass)) {
+    return true;
+  }
+
+  return false;
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const validateCredentials = (credentials) => {
   if (
     !credentials.email ||
-    !credentials.userName ||
+    !credentials.username ||
     !credentials.firstName ||
     !credentials.lastName ||
     !credentials.password
   ) {
     return "requiredFields";
-  } else if (credentials.userName.length <= 5) {
+  } else if (credentials.username.length <= 5) {
     return "shortUserName";
   } else if (credentials.firstName.length <= 5) {
     return "shortFirstName";
@@ -55,31 +74,47 @@ export const validateCredentials = (credentials) => {
     return "shortLastName";
   } else if (!emailRegex.test(credentials.email)) {
     return "invalidEmail";
-  } else if (credentials.password.length < 5) {
+  } else if (hasWeakPassword(credentials.password)) {
     return "shortPassword";
   }
 };
 
 function SignUp() {
   const [credentials, setCredentials] = useState({
-    userName: "",
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     password: "",
+    firstName: "",
+    lastName: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const registerUser = async (userData) => {
+  const navigate = useNavigate();
+
+  const registerUser = async () => {
     try {
-      const response = await axios.post(
-        "http://backend:9090/auth/register",
-        userData
-      );
+      //console.log(userData, "userData");
+      const response = await axios.post("http://localhost:9090/auth/register", {
+        username: credentials.username,
+        email: credentials.email,
+        password: credentials.password,
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+      });
       console.log("User registered successfully:", response);
+      toast.success("User registered successfully", toastOptions);
+      setCredentials({
+        username: "",
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+      });
+      navigate("/");
       // Realizar acciones adicionales después de registrar al usuario
     } catch (error) {
       console.error("Failed to register user:", error);
+      toast.error("Failed to register user", toastOptions);
       // Manejar el error de registro de usuario
     }
   };
@@ -101,34 +136,8 @@ function SignUp() {
     if (errorMessage) {
       toast.error(errorMessages[errorMessage], toastOptions);
     } else {
-      registerUser(credentials);
+      registerUser();
       console.log("credentials", credentials);
-      // axios
-      //   .post("/api/register", credentials)
-      //   .then((response) => {
-      //     console.log(response);
-      //     // Respuesta exitosa del servidor
-      //     //setSuccessMessage('Registration successful!'); // Mostrar mensaje de éxito al usuario
-      //     //setErrorMessage(''); // Limpiar mensaje de error, si lo hay
-      //     setCredentials({
-      //       userName: "",
-      //       firstName: "",
-      //       lastName: "",
-      //       email: "",
-      //       password: "",
-      //     }); // Limpiar campos del formulario
-      //   })
-      //   .catch((error) => {
-      //     // Error en la solicitud o respuesta del servidor
-      //     if (error.response) {
-      //       // Respuesta de error del servidor
-      //       toast.error(error.response.data.message); // Mostrar mensaje de error al usuario
-      //       toast.error(errorMessages.invalidCredentials, toastOptions);
-      //     } else {
-      //       // Error en la solicitud
-      //       toast.error(errorMessages.invalidCredentials, toastOptions);
-      //     }
-      //   });
     }
   };
 
@@ -159,13 +168,13 @@ function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="userName"
+                  name="username"
                   required
                   fullWidth
-                  id="userName"
+                  id="username"
                   label="User Name"
                   autoFocus
-                  value={credentials.userName}
+                  value={credentials.username}
                   onChange={handleOnChange}
                 />
               </Grid>

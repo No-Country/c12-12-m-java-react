@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
   /** The user service. */
@@ -41,8 +41,9 @@ public class AuthenticationController {
    * @param registrationBody The registration information.
    * @return Response to front end.
    */
-  @CrossOrigin(origins = "")
+  
   @PostMapping("/register")
+  @CrossOrigin(origins = "http://localhost:3000")
   public ResponseEntity registerUser(@Valid @RequestBody RegistrationBody registrationBody) {
     try {
       userService.registerUser(registrationBody);
@@ -57,8 +58,9 @@ public class AuthenticationController {
    * @param loginBody The login information.
    * @return The authentication token if successful.
    */
-  @CrossOrigin(origins = "")
+  
   @PostMapping("/login")
+  @CrossOrigin(origins = "http://localhost:3000")
   public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody) {
     String jwt = userService.loginUser(loginBody);
     if (jwt == null) {

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   Avatar,
   Button,
@@ -10,18 +13,31 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdLockOutline } from "react-icons/md";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
-import { validateCredentials, errorMessages, toastOptions } from "./SignUp";
+import { emailRegex, errorMessages, toastOptions } from "./SignUp";
+import { loginUser } from "../redux/reducer/authSlice";
 
-const SignIn = () => {
+export const validateCredentials = (credentials) => {
+  if (
+    !credentials.email ||
+    !credentials.password
+  ) {
+    return "requiredFields";
+  } else if (!emailRegex.test(credentials.email)) {
+    return "invalidEmail";
+  } else if (credentials.password.length <= 5) {
+    return "shortPassword";
+  }
+};
+
+const SignIn = ({ loginUser }) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
-    key: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -32,29 +48,37 @@ const SignIn = () => {
   const handleOnChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    let auth = localStorage.getItem("Authorization");
-    if (auth) {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
+      const user = {
+          email: credentials.email,
+          password: credentials.password,
+      }
       const errorMessage = validateCredentials(credentials);
-
+  
       if (errorMessage) {
         toast.error(errorMessages[errorMessage], toastOptions);
       } else {
-        toast.error(errorMessages.invalidCredentials, toastOptions);
+        // Hacer la llamada a la API
+        const response = await axios.post("http://localhost:9090/auth/login", user);
+        console.log(response.data, "res")
+        // Si la llamada fue exitosa, obtener el token JWT del objeto de respuesta
+        const jwtToken = response.data.jwt;
+  
+        localStorage.setItem("Authorization", `Bearer ${jwtToken}`);
+        loginUser(user);
+        navigate("/");
       }
     } catch (error) {
       toast.error(errorMessages.invalidCredentials, toastOptions);
     }
   };
-
+  
+  const state = useSelector((state) => state);
+  console.log("estado", state)
   return (
     <Container component="main" maxWidth="xs" className="pb-40">
       <CssBaseline />
@@ -148,4 +172,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default connect(null, {loginUser})(SignIn);

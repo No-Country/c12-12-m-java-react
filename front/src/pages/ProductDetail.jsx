@@ -35,7 +35,6 @@ export default function ProductDetail() {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
       } else {
-        console.log("acccca")
          navigate("/cart");
       }
     };
@@ -47,7 +46,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          //`http://localhost:8080/product`
+          //`http://localhost:9090/product`
           `https://apimocha.com/vivavintage/products`
         );
 

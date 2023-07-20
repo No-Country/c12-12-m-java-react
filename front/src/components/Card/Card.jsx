@@ -23,7 +23,7 @@ export default function ProductCard({ prod, cat }) {
   };
 
   return (
-    <Card className="main_card">
+    <Card className="main_card h-[395px]">
       <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
         <CardActionArea className="card_action">
           <Box className="cart_box">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Rating } from "@mui/material";
@@ -14,6 +14,7 @@ import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
 import { addCart } from "../redux/action/index";
+import { toast } from "react-toastify";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -22,7 +23,44 @@ export default function ProductDetail() {
   const rating = Math.floor(Math.random() * 5) + 1;
   const dispatch = useDispatch();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
- 
+  const [selectedSize, setSelectedSize] = useState("");
+
+  //agregar a carrito
+  const handleAddToCart = () => {
+    if (selectedSize === "") {
+      toast.error("Por favor, selecciona una talla antes de agregar al carrito.", {
+        position: "top-center",
+        autoClose: 1200,
+        theme: "colored",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    // agregar el producto al carrito aquí
+    addProduct(product, selectedQuantity);
+  };
+
+  // go to checkout
+  const handleCheckout = () => {
+    if (selectedSize === "") {
+      toast.error("Por favor, selecciona una talla antes de ir a comprar.", {
+        position: "top-center",
+        autoClose: 1200,
+        theme: "colored",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    addProduct(product, selectedQuantity);
+  };
 
   const handleQuantityChange = (newQuantity) => {
     setSelectedQuantity(newQuantity);
@@ -35,7 +73,7 @@ export default function ProductDetail() {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
       } else {
-         navigate("/cart");
+        navigate("/checkout");
       }
     };
 
@@ -46,7 +84,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          //`http://localhost:9090/product`
+          // `http://localhost:9090/product`
           `https://apimocha.com/vivavintage/products`
         );
 
@@ -64,7 +102,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="flex justify-center place-content-center items-center top-2/4">
+      <div className="flex place-content-center py-40 lg:py-28">
         <Loading />
       </div>
     );
@@ -79,7 +117,7 @@ export default function ProductDetail() {
   ) {
     sizes = ["xs", "s", "m", "l", "xl"];
   } else if (product.category === "shoes") {
-    sizes = ["9", "9.5", "10", "10.5", "11", "11.5"];
+    sizes = ["37", "38", "39", "40", "41", "42"];
   } else if (product.category === "accesories") {
     sizes = ["10x10", "16x10", "22x10"];
   }
@@ -108,7 +146,7 @@ export default function ProductDetail() {
               ${product.price} USD
             </strong>
 
-            <Size>
+            <Size selectedSize={selectedSize} setSelectedSize={setSelectedSize}>
               {sizes.map((size) => (
                 <ButtonSize key={size} size={size} />
               ))}
@@ -123,15 +161,14 @@ export default function ProductDetail() {
               <ButtonTo
                 icon={<MdOutlineAddShoppingCart size={20} />}
                 name="add to cart"
-                onButtonClick={() => addProduct(product, selectedQuantity)}
+                onButtonClick={handleAddToCart}
               />
 
-              <Link to="/checkout">
                 <ButtonTo
                   icon={<IoBagCheckOutline size={20} />}
                   name="go to checkout"
+                  onButtonClick={handleCheckout}
                 />
-              </Link>
             </div>
           </div>
         </div>

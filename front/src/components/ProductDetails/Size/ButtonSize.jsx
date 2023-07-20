@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 
-function ButtonSize({ size }) {
-  const [selected, setSelected] = useState(false);
-
+function ButtonSize({ size, selectedSize, setSelectedSize }) {
   const handleClick = () => {
-    setSelected(!selected);
+    if (selectedSize === size) {
+      setSelectedSize(""); // Deseleccionar la talla si ya está seleccionada
+    } else {
+      setSelectedSize(size); // Seleccionar la talla si aún no está seleccionada
+    }
   };
 
   return (
     <button
-      className={`uppercase outline outline-1 rounded-xl py-1 w-12 hover:scale-110 transition font-mont ${
-        selected ? "bg-white hover:scale-100" : ""
+      className={`uppercase rounded-xl py-1 w-12 hover:scale-110 transition font-mont bg-white ${
+        selectedSize === size ? "outline outline-1 hover:scale-100" : ""
       }`}
       onClick={handleClick}
-      style={{ outline: selected ? "1px solid #000" : "" }}
+      style={{ outline: selectedSize === size ? "1px solid #000" : "" }}
     >
       {size}
     </button>

@@ -84,8 +84,8 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          // `http://localhost:9090/product`
-          `https://apimocha.com/vivavintage/products`
+          `http://localhost:9090/product`
+          //`https://apimocha.com/vivavintage/products`
         );
 
         const productData = response.data.find(
@@ -118,7 +118,7 @@ export default function ProductDetail() {
     sizes = ["xs", "s", "m", "l", "xl"];
   } else if (product.category === "shoes") {
     sizes = ["37", "38", "39", "40", "41", "42"];
-  } else if (product.category === "accesories") {
+  } else if (product.category === "accessories") {
     sizes = ["10x10", "16x10", "22x10"];
   }
 
@@ -126,7 +126,7 @@ export default function ProductDetail() {
     <>
       <div className="py-5 px-3 md:px-40 bg-[#f2f2f2]">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-          <ImageProduct image={product.image} name={product.name} />
+          <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
 
           <div className="flex flex-col gap-4">
             <Rating precision={0.5} name="read-only" value={rating} readOnly />

@@ -15,6 +15,7 @@ import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
 import { addCart } from "../redux/action/index";
 import { toast } from "react-toastify";
+import Review from "../components/ProductDetails/ProductReview/Review";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:9090/product`
+          `https://backvivavintage.azurewebsites.net/product`
           //`https://apimocha.com/vivavintage/products`
         );
 
@@ -124,14 +125,14 @@ export default function ProductDetail() {
 
   return (
     <>
-      <div className="py-5 px-3 md:px-40 bg-[#f2f2f2]">
+      <div className="py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
           <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[20px]">
             <Rating precision={0.5} name="read-only" value={rating} readOnly />
             <div className="flex justify-between items-center gap-5 md:gap-20">
-              <h1 className="text-2xl md:text-4xl uppercase font-semibold">
+              <h1 className="text-2xl md:text-4xl uppercase font-semibold w-[500px]">
                 {product.name}
               </h1>
               <BsHeart
@@ -157,21 +158,22 @@ export default function ProductDetail() {
               onQuantityChange={handleQuantityChange}
             />
 
-            <div className="flex flex-wrap place-content-center md:place-content-start gap-4">
+            <div className="flex flex-wrap place-content-center md:place-content-start gap-4 pt-10">
               <ButtonTo
                 icon={<MdOutlineAddShoppingCart size={20} />}
-                name="add to cart"
+                name="agregar al carrito"
                 onButtonClick={handleAddToCart}
               />
 
                 <ButtonTo
                   icon={<IoBagCheckOutline size={20} />}
-                  name="go to checkout"
+                  name="ir al checkout"
                   onButtonClick={handleCheckout}
                 />
             </div>
           </div>
         </div>
+        <Review />
       </div>
     </>
   );

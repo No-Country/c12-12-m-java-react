@@ -12,8 +12,8 @@ function ShippingCard() {
             size={30}
           />
         }
-        info1="Tiempo estimado de llegada: 15-20 días a toda Sudamérica."
-        info2="Tiempo estimado de llegada: 25-30 días a los demás países."
+        info1="Tiempo estimado de llegada: 5 - 8 días a toda Sudamérica."
+        info2="Tiempo estimado de llegada: 10 - 14 días a los demás países."
       />
       <InfoShipping
         icon={

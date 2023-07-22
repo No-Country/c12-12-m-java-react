@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function ButtonSize({ size, selectedSize, setSelectedSize }) {
   const handleClick = () => {
@@ -12,10 +12,10 @@ function ButtonSize({ size, selectedSize, setSelectedSize }) {
   return (
     <button
       className={`uppercase rounded-xl py-1 w-12 hover:scale-110 transition font-mont bg-white ${
-        selectedSize === size ? "outline outline-1 hover:scale-100" : ""
+        selectedSize === size ? "outline outline-2 hover:scale-100" : ""
       }`}
       onClick={handleClick}
-      style={{ outline: selectedSize === size ? "1px solid #000" : "" }}
+      style={{ outline: selectedSize === size ? "2px solid #000" : "" }}
     >
       {size}
     </button>

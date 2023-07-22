@@ -41,8 +41,7 @@ export default function ProductDetail() {
       });
       return;
     }
-    // agregar el producto al carrito aquí
-    addProduct(product, selectedQuantity);
+    addProduct(product, selectedQuantity, "/cart");
   };
 
   // go to checkout
@@ -60,7 +59,7 @@ export default function ProductDetail() {
       });
       return;
     }
-    addProduct(product, selectedQuantity);
+    addProduct(product, selectedQuantity, "/checkout");
   };
 
   const handleQuantityChange = (newQuantity) => {
@@ -68,13 +67,13 @@ export default function ProductDetail() {
     console.log(selectedQuantity, "cantidad");
   };
 
-  const addProduct = (prod, quantity) => {
+  const addProduct = (prod, quantity, redirectTo) => {
     const addProductRecursive = (remainingQuantity) => {
       if (remainingQuantity > 0) {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
       } else {
-        navigate("/checkout");
+        navigate(redirectTo);
       }
     };
 

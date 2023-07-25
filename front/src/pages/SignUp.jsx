@@ -94,7 +94,7 @@ function SignUp() {
   const registerUser = async () => {
     try {
       //console.log(userData, "userData");
-      const response = await axios.post("http://localhost:9090/auth/register", {
+      const response = await axios.post("https://backvivavintage.azurewebsites.net/auth/register", {
         username: credentials.username,
         email: credentials.email,
         password: credentials.password,

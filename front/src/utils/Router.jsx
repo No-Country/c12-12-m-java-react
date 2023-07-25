@@ -6,7 +6,7 @@ import SingleCategory from "../pages/SingleCategory/SingleCategory";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import UnderConstruction from "../pages/UnderConstruction/UnderConstruction";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../redux/store";
 import ProductDetail from "../pages/ProductDetail";
@@ -20,7 +20,6 @@ import AboutUs from "../pages/FooterPages/AboutUs";
 import WhyVivavintage from "../pages/FooterPages/WhyVivavintage";
 import TermsConditions from "../pages/FooterPages/TermsConditions";
 import Contact from "../pages/FooterPages/Contact";
-import { useSelector } from "react-redux";
 
 
 function Router() {

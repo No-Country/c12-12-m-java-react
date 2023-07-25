@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Rating } from "@mui/material";
@@ -14,6 +14,8 @@ import ButtonSize from "../components/ProductDetails/Size/ButtonSize";
 import Quantity from "../components/ProductDetails/Quantity/Quantity";
 import ButtonTo from "../components/ProductDetails/ButtonTo";
 import { addCart } from "../redux/action/index";
+import { toast } from "react-toastify";
+import Review from "../components/ProductDetails/ProductReview/Review";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -22,20 +24,56 @@ export default function ProductDetail() {
   const rating = Math.floor(Math.random() * 5) + 1;
   const dispatch = useDispatch();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
- 
+  const [selectedSize, setSelectedSize] = useState("");
+
+  //agregar a carrito
+  const handleAddToCart = () => {
+    if (selectedSize === "") {
+      toast.error("Por favor, selecciona una talla antes de agregar al carrito.", {
+        position: "top-center",
+        autoClose: 1200,
+        theme: "colored",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    addProduct(product, selectedQuantity, "/cart");
+  };
+
+  // go to checkout
+  const handleCheckout = () => {
+    if (selectedSize === "") {
+      toast.error("Por favor, selecciona una talla antes de ir a comprar.", {
+        position: "top-center",
+        autoClose: 1200,
+        theme: "colored",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    addProduct(product, selectedQuantity, "/checkout");
+  };
 
   const handleQuantityChange = (newQuantity) => {
     setSelectedQuantity(newQuantity);
     console.log(selectedQuantity, "cantidad");
   };
 
-  const addProduct = (prod, quantity) => {
+  const addProduct = (prod, quantity, redirectTo) => {
     const addProductRecursive = (remainingQuantity) => {
       if (remainingQuantity > 0) {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
       } else {
-         navigate("/cart");
+        navigate(redirectTo);
       }
     };
 
@@ -46,8 +84,8 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          //`http://localhost:9090/product`
-          `https://apimocha.com/vivavintage/products`
+          `https://backvivavintage.azurewebsites.net/product`
+          //`https://apimocha.com/vivavintage/products`
         );
 
         const productData = response.data.find(
@@ -64,7 +102,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="flex justify-center place-content-center items-center top-2/4">
+      <div className="flex place-content-center py-40 lg:py-28">
         <Loading />
       </div>
     );
@@ -79,21 +117,21 @@ export default function ProductDetail() {
   ) {
     sizes = ["xs", "s", "m", "l", "xl"];
   } else if (product.category === "shoes") {
-    sizes = ["9", "9.5", "10", "10.5", "11", "11.5"];
-  } else if (product.category === "accesories") {
+    sizes = ["37", "38", "39", "40", "41", "42"];
+  } else if (product.category === "accessories") {
     sizes = ["10x10", "16x10", "22x10"];
   }
 
   return (
     <>
-      <div className="py-5 px-3 md:px-40 bg-[#f2f2f2]">
+      <div className="py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-          <ImageProduct image={product.image} name={product.name} />
+          <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[20px]">
             <Rating precision={0.5} name="read-only" value={rating} readOnly />
             <div className="flex justify-between items-center gap-5 md:gap-20">
-              <h1 className="text-2xl md:text-4xl uppercase font-semibold">
+              <h1 className="text-2xl md:text-4xl uppercase font-semibold w-[500px]">
                 {product.name}
               </h1>
               <BsHeart
@@ -108,7 +146,7 @@ export default function ProductDetail() {
               ${product.price} USD
             </strong>
 
-            <Size>
+            <Size selectedSize={selectedSize} setSelectedSize={setSelectedSize}>
               {sizes.map((size) => (
                 <ButtonSize key={size} size={size} />
               ))}
@@ -119,22 +157,22 @@ export default function ProductDetail() {
               onQuantityChange={handleQuantityChange}
             />
 
-            <div className="flex flex-wrap place-content-center md:place-content-start gap-4">
+            <div className="flex flex-wrap place-content-center md:place-content-start gap-4 pt-10">
               <ButtonTo
                 icon={<MdOutlineAddShoppingCart size={20} />}
-                name="add to cart"
-                onButtonClick={() => addProduct(product, selectedQuantity)}
+                name="agregar al carrito"
+                onButtonClick={handleAddToCart}
               />
 
-              <Link to="/checkout">
                 <ButtonTo
                   icon={<IoBagCheckOutline size={20} />}
-                  name="go to checkout"
+                  name="ir al checkout"
+                  onButtonClick={handleCheckout}
                 />
-              </Link>
             </div>
           </div>
         </div>
+        <Review />
       </div>
     </>
   );

@@ -6,7 +6,9 @@ import { Container } from "@mui/system";
 import Loading from "../../components/Loading";
 import ProductCard from "../../components/Card/Card";
 import RadioBtn from "../../components/RadioBtn";
+import FilterSelect from "../../components/FilterSelect";
 import { capitalizeFirstLetter } from "../../utils/constants";
+
 
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
@@ -15,10 +17,15 @@ const SingleCategory = () => {
     const storedGender = localStorage.getItem("gender");
     return storedGender || "all";
   });
+  const [order, setOrder] = useState(() => {
+    const storedOrder = localStorage.getItem("order");
+    return storedOrder || "Menor Precio";
+  });
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { cat } = useParams();
   let selectedCategory;
   const formattedName = capitalizeFirstLetter(cat);
+  
 
   if (cat === "pantalones") {
     selectedCategory = "pants";
@@ -29,7 +36,7 @@ const SingleCategory = () => {
   } else if (cat === "camperas") {
     selectedCategory = "jackets";
   } else if (cat === "accesorios") {
-    selectedCategory = "accesories";
+    selectedCategory = "accessories";
   } else if (cat === "calzados") {
     selectedCategory = "shoes";
   }
@@ -37,6 +44,11 @@ const SingleCategory = () => {
   const handleGenreChange = (event) => {
     const selectedGenre = event.target.value;
     setGender(selectedGenre);
+  };
+  
+
+  const handleChange = (event) => {
+    setOrder(event.target.value);
   };
 
   useEffect(() => {
@@ -56,21 +68,30 @@ const SingleCategory = () => {
         );
       }
     });
-
+    console.log(filtered, "filtrado")
+    if (order === "Menor Precio") {
+      filtered.sort((a, b) => a.price - b.price)
+    }
+    if (order === "Mayor Precio") {
+      filtered.sort((a, b) => b.price - a.price)
+    }
+    
     setFilteredProducts(filtered);
-  }, [productData, selectedCategory, gender]);
+  }, [productData, selectedCategory, gender, order]);
+
 
   useEffect(() => {
     localStorage.setItem("gender", gender);
-  }, [gender]);
+    localStorage.setItem("order", order);
+  }, [gender, order]);
 
   const getCategoryProduct = async () => {
     try {
       setIsLoading(true);
 
       const { data } = await axios.get(
-        `https://apimocha.com/vivavintage/products`
-        //`http://localhost:9090/product`
+        //`https://apimocha.com/vivavintage/products`
+        `https://backvivavintage.azurewebsites.net/product`
       );
 
       setIsLoading(false);
@@ -127,7 +148,18 @@ const SingleCategory = () => {
             <hr />
           </div>
         </div>
-        <RadioBtn onChange={handleGenreChange} gender={gender} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            margin: "0 5%",
+          }}
+        >
+          <RadioBtn onChange={handleGenreChange} gender={gender} />
+          <FilterSelect handleChange={handleChange} order={order}/>
+        </div>
+
         {loading}
         <Container
           maxWidth="xl"

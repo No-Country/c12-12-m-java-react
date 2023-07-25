@@ -12,7 +12,7 @@ function HomePage() {
             Bienvenido a VivaVintage
           </h1>
           <p className="text-base md:text-3xl text-center">
-          La verdadera moda antigua no está en las películas, sino aquí
+          La verdadera moda clásica no está en las películas, sino aquí
           </p>
         </div>
       </div>

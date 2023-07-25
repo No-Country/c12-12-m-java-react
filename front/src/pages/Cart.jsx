@@ -46,10 +46,9 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                               data-mdb-ripple-color="light"
                             >
                               <img
-                                src={item.image}
+                                src={item.image1}
                                 alt={item.title}
-                                width={100}
-                                height={75}
+                                className="w-[100px] h-[100px] md:object-contain"
                               />
                             </div>
                           </div>

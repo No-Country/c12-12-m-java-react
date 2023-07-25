@@ -21,15 +21,15 @@ export default function ProductCard({ prod, cat }) {
   const addProduct = (prod) => {
     dispatch(addCart(prod));
   };
-
+console.log("prod", prod)
   return (
-    <Card className="main_card">
+    <Card className="main_card h-[395px]">
       <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
         <CardActionArea className="card_action">
           <Box className="cart_box">
             <img
               alt={prod.name}
-              src={prod.image}
+              src={prod.image1}
               loading="lazy"
               className="cart_img"
             />

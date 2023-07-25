@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useSelector } from "react-redux";
-import { connect } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import {
   Avatar,
   Button,

@@ -1,7 +1,7 @@
 import {Radio, RadioGroup, FormControlLabel, FormControl, FormLabel} from "@mui/material";
 
 const RadioBtn = ({gender, onChange}) => (
-    <FormControl style={{ marginLeft: "5%" }}>
+    <FormControl >
       <FormLabel id="demo-row-radio-buttons-group-label">Genero</FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"

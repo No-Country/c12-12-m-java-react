@@ -158,7 +158,7 @@ const SignIn = ({ loginUser }) => {
             <Typography variant="body2">
               Don&apos;t have an account?{" "}
               <Link
-                to="/sign-up"
+                to="/register"
                 variant="body2"
                 style={{ color: "#1976d2", marginLeft: 3 }}
               >

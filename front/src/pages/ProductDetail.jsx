@@ -124,7 +124,7 @@ export default function ProductDetail() {
 
   return (
     <>
-      <div className="py-5 px-3 lg:px-40">
+      <div className="py-32 md:py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
           <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
 

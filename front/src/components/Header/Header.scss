@@ -7,6 +7,14 @@
   background-color: #f2f2f2;
   height: 100px;
 
+  @media (max-width: 767px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; 
+  }
+
   &__menu {
     //margin-right: 10px;
     //margin-left: 3%;
@@ -87,7 +95,6 @@
       color: #818181;
       cursor: pointer;
       &:hover {
-        //text-decoration: underline;
         color: #212429;
       }
     }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, connect, useDispatch } from "react-redux";
 import {
   FaBars,
@@ -15,9 +15,15 @@ import "./Header.scss";
 const Header = ({ toggleDrawer, logoutUser }) => {
   const state = useSelector((state) => state);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const avatarRef = useRef(null);
   const dispatch = useDispatch();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleOutsideClick = (event) => {
+    if (isDropdownOpen && avatarRef.current && !avatarRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
   };
 
   const logOut = () => {
@@ -25,6 +31,14 @@ const Header = ({ toggleDrawer, logoutUser }) => {
     localStorage.removeItem("Authorization");
     setIsDropdownOpen(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+    // eslint-disable-next-line
+  }, [isDropdownOpen]);
 
   console.log("state!", state);
   return (
@@ -54,7 +68,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
         </Link>
 
         {/* Icono de avatar de usuario */}
-        <div className="avatar cursor-pointer" onClick={toggleDropdown}>
+        <div className="avatar cursor-pointer" onClick={toggleDropdown} ref={avatarRef}>
           {state.authReducer.isLoggedIn ? (
             <FaUserCheck id="avatar-icon" size={26} />
           ) : (

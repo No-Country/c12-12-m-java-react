@@ -16,6 +16,7 @@ import ButtonTo from "../components/ProductDetails/ButtonTo";
 import { addCart } from "../redux/action/index";
 import { toast } from "react-toastify";
 import Review from "../components/ProductDetails/ProductReview/Review";
+import GooglePayButton from "@google-pay/button-react";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -25,20 +26,36 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
-
+  const shippingOptions = [
+    {
+      id: "free",
+      label: "Free shipping",
+      description: "Arrives in 5 to 7 days",
+      price: "0.00",
+    },
+    {
+      id: "express",
+      label: "Express shipping",
+      description: "$5.00 - Arrives in 1 to 3 days",
+      price: "5.00",
+    },
+  ];
   //agregar a carrito
   const handleAddToCart = () => {
     if (selectedSize === "") {
-      toast.error("Por favor, selecciona una talla antes de agregar al carrito.", {
-        position: "top-center",
-        autoClose: 1200,
-        theme: "colored",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        "Por favor, selecciona una talla antes de agregar al carrito.",
+        {
+          position: "top-center",
+          autoClose: 1200,
+          theme: "colored",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       return;
     }
     addProduct(product, selectedQuantity, "/cart");
@@ -126,7 +143,10 @@ export default function ProductDetail() {
     <>
       <div className="py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-          <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
+          <ImageProduct
+            image={[product.image1, product.image2, product.image3]}
+            name={product.name}
+          />
 
           <div className="flex flex-col gap-[20px]">
             <Rating precision={0.5} name="read-only" value={rating} readOnly />
@@ -163,12 +183,57 @@ export default function ProductDetail() {
                 name="agregar al carrito"
                 onButtonClick={handleAddToCart}
               />
-
-                <ButtonTo
-                  icon={<IoBagCheckOutline size={20} />}
-                  name="ir al checkout"
-                  onButtonClick={handleCheckout}
-                />
+              <GooglePayButton
+                buttonSizeMode="fill"
+                environment="TEST"
+                buttonType="pay"
+                buttonLocale="es"
+                paymentRequest={{
+                  apiVersion: 2,
+                  apiVersionMinor: 0,
+                  allowedPaymentMethods: [
+                    {
+                      type: "CARD",
+                      parameters: {
+                        allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                        allowedCardNetworks: ["MASTERCARD", "VISA"],
+                      },
+                      tokenizationSpecification: {
+                        type: "PAYMENT_GATEWAY",
+                        parameters: {
+                          gateway: "example",
+                          gatewayMerchantId: "exampleGatewayMerchantId",
+                        },
+                      },
+                    },
+                  ],
+                  merchantInfo: {
+                    merchantId: "12345678901234567890",
+                    merchantName: "Demo Merchant",
+                  },
+                  transactionInfo: {
+                    totalPriceStatus: "FINAL",
+                    totalPriceLabel: "Total",
+                    totalPrice: "100.00",
+                    currencyCode: "USD",
+                    countryCode: "US",
+                  },
+                  shippingAddressRequired: true,
+                  shippingOptionParameters: {
+                    defaultSelectedOptionId: "free",
+                    shippingOptions: shippingOptions.map((o) => ({
+                      id: o.id,
+                      label: o.label,
+                      description: o.description,
+                    })),
+                  },
+                  shippingOptionRequired: true,
+                }}
+                onLoadPaymentData={(paymentRequest) => {
+                  console.log("load payment data", paymentRequest);
+                  navigate("/confirmation");
+                }}
+              />
             </div>
           </div>
         </div>

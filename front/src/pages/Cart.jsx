@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { capitalizeFirstLetter } from "../utils/constants";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import GooglePayButton from "@google-pay/button-react";
 
 const EmptyCart = () => {
   return (
@@ -20,14 +21,28 @@ const EmptyCart = () => {
 };
 
 const ShowCart = ({ state, addItem, removeItem }) => {
+  const navigate = useNavigate();
   let subtotal = 0;
-  let shipping = 30.0;
+  let descuento = 7;
   let totalItems = 0;
   state.forEach((item) => {
     subtotal += item.price * item.qty;
     totalItems += item.qty;
   });
-
+  const shippingOptions = [
+    {
+      id: "free",
+      label: "Free shipping",
+      description: "Arrives in 5 to 7 days",
+      price: "0.00",
+    },
+    {
+      id: "express",
+      label: "Express shipping",
+      description: "$5.00 - Arrives in 1 to 3 days",
+      price: "5.00",
+    },
+  ];
   return (
     <>
       <section className="h-100 gradient-custom">
@@ -99,8 +114,8 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                       <span>${Math.round(subtotal)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                      Shipping
-                      <span>${shipping}</span>
+                      Descuento de invierno
+                      <span>{descuento}%</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
@@ -110,18 +125,66 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                       </div>
                       <span>
                         <strong className="text-base font-bold font-mont">
-                          ${Math.round(subtotal + shipping)}
+                          ${Math.round(subtotal * ((100 - descuento) * 0.01))}
                         </strong>
                       </span>
                     </li>
                   </ul>
-
-                  <Link
-                    to="/checkout"
-                    className="btn btn-dark btn-lg btn-block"
-                  >
-                    Go to checkout
-                  </Link>
+                  <GooglePayButton
+                    buttonSizeMode="fill"
+                    environment="TEST"
+                    buttonType="pay"
+                    buttonLocale="es"
+                    paymentRequest={{
+                      apiVersion: 2,
+                      apiVersionMinor: 0,
+                      allowedPaymentMethods: [
+                        {
+                          type: "CARD",
+                          parameters: {
+                            allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                            allowedCardNetworks: ["MASTERCARD", "VISA"],
+                          },
+                          tokenizationSpecification: {
+                            type: "PAYMENT_GATEWAY",
+                            parameters: {
+                              gateway: "example",
+                              gatewayMerchantId: "exampleGatewayMerchantId",
+                            },
+                          },
+                        },
+                      ],
+                      merchantInfo: {
+                        merchantId: "12345678901234567890",
+                        merchantName: "Demo Merchant",
+                      },
+                      transactionInfo: {
+                        totalPriceStatus: "FINAL",
+                        totalPriceLabel: "Total",
+                        totalPrice: "100.00",
+                        currencyCode: "USD",
+                        countryCode: "US",
+                      },
+                      shippingAddressRequired: true,
+                      shippingOptionParameters: {
+                        defaultSelectedOptionId: "free",
+                        shippingOptions: shippingOptions.map((o) => ({
+                          id: o.id,
+                          label: o.label,
+                          description: o.description,
+                        })),
+                      },
+                      shippingOptionRequired: true,
+                    }}
+                    onLoadPaymentData={(paymentRequest) => {
+                      console.log("load payment data", paymentRequest);
+                      navigate("/confirmation");
+                    }}
+                  />
+                  <p className="text-base font-mont mt-2">
+                    *Por ahora solo disponibles los pagos con Google Pay <br />
+                    *El costo y método de envío se calcularán durante el pago
+                  </p>
                 </div>
               </div>
             </div>

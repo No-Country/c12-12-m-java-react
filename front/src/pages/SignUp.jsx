@@ -37,23 +37,10 @@ export const toastOptions = {
 };
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const hasWeakPassword = (pass) => {
-  // Longitud menor a 5
-  if (pass < 5) {
-    return true;
-  }
-
-  // Sin letra mayúscula
-  if (!/[A-Z]/.test(pass)) {
-    return true;
-  }
-
-  // Sin número
-  if (!/\d/.test(pass)) {
-    return true;
-  }
-
-  return false;
+  // Longitud menor a 5, sin letra mayúscula o sin número
+  return pass.length < 5 || !/[A-Z]/.test(pass) || !/\d/.test(pass);
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -93,7 +80,6 @@ function SignUp() {
 
   const registerUser = async () => {
     try {
-      //console.log(userData, "userData");
       const response = await axios.post("https://backvivavintage.azurewebsites.net/auth/register", {
         username: credentials.username,
         email: credentials.email,

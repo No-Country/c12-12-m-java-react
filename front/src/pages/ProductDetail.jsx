@@ -29,19 +29,22 @@ export default function ProductDetail() {
   //agregar a carrito
   const handleAddToCart = () => {
     if (selectedSize === "") {
-      toast.error("Por favor, selecciona una talla antes de agregar al carrito.", {
-        position: "top-center",
-        autoClose: 1200,
-        theme: "colored",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        "Por favor, selecciona una talla antes de agregar al carrito.",
+        {
+          position: "top-center",
+          autoClose: 1200,
+          theme: "colored",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       return;
     }
-    addProduct(product, selectedQuantity, "/cart");
+    addProduct(product, selectedQuantity);
   };
 
   const handleQuantityChange = (newQuantity) => {
@@ -49,18 +52,29 @@ export default function ProductDetail() {
     console.log(selectedQuantity, "cantidad");
   };
 
-  const addProduct = (prod, quantity, redirectTo) => {
+  const addProduct = (prod, quantity) => {
     const addProductRecursive = (remainingQuantity) => {
       if (remainingQuantity > 0) {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
-      } else {
-        navigate(redirectTo);
       }
     };
 
     addProductRecursive(quantity);
   };
+
+  // const addProduct = (prod, quantity, redirectTo) => {
+  //   const addProductRecursive = (remainingQuantity) => {
+  //     if (remainingQuantity > 0) {
+  //       dispatch(addCart(prod));
+  //       addProductRecursive(remainingQuantity - 1);
+  //     } else {
+  //       navigate(redirectTo);
+  //     }
+  //   };
+
+  //   addProductRecursive(quantity);
+  // };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -108,7 +122,10 @@ export default function ProductDetail() {
     <>
       <div className="py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-          <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
+          <ImageProduct
+            image={[product.image1, product.image2, product.image3]}
+            name={product.name}
+          />
 
           <div className="flex flex-col gap-[20px]">
             <Rating precision={0.5} name="read-only" value={rating} readOnly />

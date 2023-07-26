@@ -21,7 +21,7 @@ export default function ProductCard({ prod, cat }) {
   const addProduct = (prod) => {
     dispatch(addCart(prod));
   };
-console.log("prod", prod)
+  console.log("prod", prod);
   return (
     <Card className="main_card h-[395px]">
       <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
@@ -60,7 +60,7 @@ console.log("prod", prod)
           <Rating precision={0.5} name="read-only" value={rating} readOnly />
         </Typography>
       </CardActions>
-      <Button onClick={() => addProduct(prod)}>Add to cart</Button>
+      <Button onClick={() => addProduct(prod)}>Agregar al carrito</Button>
     </Card>
   );
 }

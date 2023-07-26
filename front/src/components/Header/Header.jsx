@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useSelector, connect, useDispatch } from "react-redux";
-import { FaBars, FaShoppingCart, FaUserCircle, FaUserCheck } from "react-icons/fa";
+import {
+  FaBars,
+  FaShoppingCart,
+  FaUserCircle,
+  FaUserCheck,
+} from "react-icons/fa";
 import logo from "../../assets/deer.svg";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/reducer/authSlice";
@@ -23,26 +28,20 @@ const Header = ({ toggleDrawer, logoutUser }) => {
 
   console.log("state!", state);
   return (
-    <header className="header px-[18px] md:px-[40px]">
-      <div className="header__menu w-[30px] md:w-1/5">
+    <header className="header sticky z-50 top-0 px-[18px] md:px-[40px] mb-4">
+      <div className="header__menu">
         <button className="header__menu-button" onClick={toggleDrawer}>
           <FaBars className="header__menu-icon" />
         </button>
       </div>
       {/* <div className="header__logo"> */}
-      <Link
-        className="header__logo tracking-tight md:tracking-[3px] w-[45px] md:w-4/5"
-        to="/"
-      >
+      <Link className="header__logo " to="/">
         <h1 className="header__logo-text">Viva</h1>
         <img src={logo} alt="Logo" className="header__logo-image" />
         <h1 className="header__logo-text">Vintage</h1>
       </Link>
       {/* </div> */}
-      <div className="header__links w-[30px] md:w-1/5">
-        <Link to="/" className="header__links-link hidden md:block">
-          Home
-        </Link>
+      <div className="header__links">
         <Link
           to="/cart"
           className="header__links-link"
@@ -56,10 +55,10 @@ const Header = ({ toggleDrawer, logoutUser }) => {
 
         {/* Icono de avatar de usuario */}
         <div className="avatar cursor-pointer" onClick={toggleDropdown}>
-        {state.authReducer.isLoggedIn ? (
-          <FaUserCheck id="avatar-icon" size={26} />
-        ) : (
-          <FaUserCircle id="avatar-icon" size={26} />
+          {state.authReducer.isLoggedIn ? (
+            <FaUserCheck id="avatar-icon" size={26} />
+          ) : (
+            <FaUserCircle id="avatar-icon" size={26} />
           )}
         </div>
 
@@ -93,6 +92,5 @@ const Header = ({ toggleDrawer, logoutUser }) => {
     </header>
   );
 };
-
 
 export default connect(null, { logoutUser })(Header);

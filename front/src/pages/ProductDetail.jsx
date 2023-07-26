@@ -5,7 +5,6 @@ import axios from "axios";
 import { Rating } from "@mui/material";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-import { IoBagCheckOutline } from "react-icons/io5";
 import Loading from "../components/Loading";
 import ImageProduct from "../components/ProductDetails/ImageProduct/ImageProduct";
 import Size from "../components/ProductDetails/Size/Size";
@@ -18,7 +17,6 @@ import { toast } from "react-toastify";
 import Review from "../components/ProductDetails/ProductReview/Review";
 
 export default function ProductDetail() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const rating = Math.floor(Math.random() * 5) + 1;
@@ -62,19 +60,6 @@ export default function ProductDetail() {
 
     addProductRecursive(quantity);
   };
-
-  // const addProduct = (prod, quantity, redirectTo) => {
-  //   const addProductRecursive = (remainingQuantity) => {
-  //     if (remainingQuantity > 0) {
-  //       dispatch(addCart(prod));
-  //       addProductRecursive(remainingQuantity - 1);
-  //     } else {
-  //       navigate(redirectTo);
-  //     }
-  //   };
-
-  //   addProductRecursive(quantity);
-  // };
 
   useEffect(() => {
     const fetchProduct = async () => {

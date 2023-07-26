@@ -54,7 +54,7 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                   {state.map((item) => {
                     return (
                       <div key={item.id}>
-                        <div className="row d-flex align-items-center">
+                        <div className="flex flex-col sm:flex-row lg:flex-row items-center justify-between gap-4 lg:gap-0">
                           <div className="col-lg-3 col-md-12">
                             <div
                               className="bg-image rounded"
@@ -68,7 +68,7 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                             </div>
                           </div>
 
-                          <h3 className="col-lg-5 col-md-6 text-xl text-[#828282]">
+                          <h3 className="col-lg-5 col-md-6 text-center text-xl text-[#828282]">
                             {capitalizeFirstLetter(item.name)}
                           </h3>
 

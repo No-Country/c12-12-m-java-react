@@ -81,13 +81,13 @@ const HomePage = () => {
       <img
         src="https://images.pexels.com/photos/7148445/pexels-photo-7148445.jpeg?auto=compress&cs=tinysrgb&w=600"
         alt="banner"
-        className="absolute z-30 right-5 top-60 rounded-md w-[500px] shadow hidden lg:block"
+        className="absolute z-30 right-5 top-[17rem] rounded-md w-[500px] shadow hidden lg:block"
       />
       <div
         className="py-10 px-3 pt-[430px] pb-20 md:pt-16 space-y-20"
         style={{ maxWidth: "85rem", margin: "0 auto" }}
       >
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-4 md:pt-5 items-center justify-between">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-4 md:pt-10 items-center justify-between">
           <SiNike size={80} />
           <CgAdidas size={80} />
           <SiZara size={80} />

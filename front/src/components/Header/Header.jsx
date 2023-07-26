@@ -36,9 +36,9 @@ const Header = ({ toggleDrawer, logoutUser }) => {
       </div>
       {/* <div className="header__logo"> */}
       <Link className="header__logo " to="/">
-        <h1 className="header__logo-text">Viva</h1>
-        <img src={logo} alt="Logo" className="header__logo-image" />
-        <h1 className="header__logo-text">Vintage</h1>
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">Viva</h1>
+        <img src={logo} alt="Logo" className="header__logo-image w-[55px] sm:w-[70px] md:w-[90px]" />
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">Vintage</h1>
       </Link>
       {/* </div> */}
       <div className="header__links">

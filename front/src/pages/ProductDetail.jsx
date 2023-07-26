@@ -113,7 +113,7 @@ export default function ProductDetail() {
           />
 
           <div className="flex flex-col gap-[20px]">
-            <Rating precision={0.5} name="read-only" value={rating} readOnly />
+            <Rating precision={0.5} name="read-only" value={product.star? product.star : rating} readOnly />
             <div className="flex justify-between items-center gap-5 md:gap-20">
               <h1 className="text-2xl md:text-4xl uppercase font-semibold w-[500px]">
                 {product.name}

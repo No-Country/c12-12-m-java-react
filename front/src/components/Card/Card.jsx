@@ -57,7 +57,7 @@ export default function ProductCard({ prod, cat }) {
           ${prod.price}
         </Typography>
         <Typography>
-          <Rating precision={0.5} name="read-only" value={rating} readOnly />
+          <Rating precision={0.5} name="read-only" value={prod.star? prod.star : rating} readOnly />
         </Typography>
       </CardActions>
       <Button onClick={() => addProduct(prod)}>Agregar al carrito</Button>

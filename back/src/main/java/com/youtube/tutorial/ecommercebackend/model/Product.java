@@ -53,6 +53,8 @@ public class Product {
   @Column(name = "size")
   private String size;
 
+  @Column(name = "star")
+  private int star;
 
   @OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE, optional = false, orphanRemoval = true)
   private Inventory inventory;

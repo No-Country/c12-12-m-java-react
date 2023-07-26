@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useSelector, connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   Avatar,
   Button,
@@ -62,7 +63,7 @@ const SignIn = ({ loginUser }) => {
         toast.error(errorMessages[errorMessage], toastOptions);
       } else {
         // Hacer la llamada a la API
-        const response = await axios.post("http://localhost:9090/auth/login", user);
+        const response = await axios.post("https://backvivavintage.azurewebsites.net/auth/login", user);
         console.log(response.data, "res")
         // Si la llamada fue exitosa, obtener el token JWT del objeto de respuesta
         const jwtToken = response.data.jwt;
@@ -157,7 +158,7 @@ const SignIn = ({ loginUser }) => {
             <Typography variant="body2">
               Don&apos;t have an account?{" "}
               <Link
-                to="/sign-up"
+                to="/register"
                 variant="body2"
                 style={{ color: "#1976d2", marginLeft: 3 }}
               >

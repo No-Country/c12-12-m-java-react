@@ -16,7 +16,6 @@ services:
     networks:
       - testing_network
     ports:
-      - "9090:9090"
-
+      - "8080:8080"
 networks:
   testing_network:

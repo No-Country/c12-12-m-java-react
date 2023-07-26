@@ -33,7 +33,7 @@ public class ProductController {
    * @return The list of products.
    */
   @GetMapping
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   public List<Product> getProducts() {
     return productService.getProducts();
   }

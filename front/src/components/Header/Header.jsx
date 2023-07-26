@@ -65,7 +65,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
 
         {/* Dropdown */}
         {isDropdownOpen && (
-          <div className="header__user-dropdown">
+          <div className="header__user-dropdown z-30">
             {state.authReducer.isLoggedIn ? (
               <Link to="/" className="header__user-option" onClick={logOut}>
                 Log Out

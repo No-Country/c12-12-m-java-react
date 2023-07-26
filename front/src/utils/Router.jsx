@@ -32,8 +32,11 @@ function Router() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route exact path="/:cat/:id" element={<ProductDetail />} />
           <Route exact path="/categoria/:cat" element={<SingleCategory />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={isLoggedIn? <Cart /> : <Navigate to="/sign-in" />}/>
+          {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route
+            path="/cart"
+            element={isLoggedIn ? <Cart /> : <Navigate to="/sign-in" />}
+          />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/forgotpassword" element={<UnderConstruction />} />
           {/* Footer pages */}

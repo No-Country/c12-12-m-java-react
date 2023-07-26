@@ -12,14 +12,11 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100; 
+    z-index: 100;
   }
 
   &__menu {
-    //margin-right: 10px;
-    //margin-left: 3%;
-    width: 20%;
-
+    display: flex;
     &-button {
       background: none;
       border: none;
@@ -37,33 +34,29 @@
   }
 
   &__logo {
-    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    
 
     &-image {
-      width: 65px;
+      width: 90px;
       margin-right: 8px;
       margin-left: 8px;
     }
 
     &-text {
-      font-size: 20px;
+      font-size: 30px;
       margin: 0;
     }
   }
 
   &__links {
-    width: 20%;
     display: flex;
     align-items: center;
     gap: 20px;
-    color: rgba(0,0,0,.5);
+    color: rgba(0, 0, 0, 0.5);
     justify-content: flex-end;
-    
 
     &-icon {
       font-size: 24px;

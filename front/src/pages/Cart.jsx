@@ -133,7 +133,7 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                     </li>
                   </ul>
 
-                  {!isLoggedIn ? (
+                  {isLoggedIn ? (
                     <GooglePayButton
                       buttonSizeMode="fill"
                       environment="TEST"

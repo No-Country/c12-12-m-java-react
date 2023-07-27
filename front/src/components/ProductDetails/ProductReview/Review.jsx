@@ -10,7 +10,7 @@ function Review() {
         <section className="flex flex-col gap-4">
           <h3 className="font-mont text-lg md:text-2xl font-bold">Reseñas</h3>
 
-          <ButtonTo name="Dejar reseña" />
+          {/* <ButtonTo name="Dejar reseña" /> */}
 
           {/*reseña usuario */}
           <div className="lg:w-[500px] flex flex-col gap-3 bg-white p-2 rounded-lg shadow outline outline-2 font-mont mt-3">

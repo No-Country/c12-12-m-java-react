@@ -15,21 +15,21 @@ function Customers() {
             FAQ
           </a>
         </li>
-        <li className="hover:underline underline-offset-8 transition">
+        {/* <li className="hover:underline underline-offset-8 transition">
           <a href="/shipping-method" className="hover:text-gray-400">
             Métodos de Envío
           </a>
-        </li>
+        </li> */}
         <li className="hover:underline underline-offset-8 transition">
           <a href="/gift-card" className="hover:text-gray-400">
             Tarjetas de Regalo
           </a>
         </li>
-        <li className="hover:underline underline-offset-8 transition">
+        {/* <li className="hover:underline underline-offset-8 transition">
           <a href="/returns-and-exchanges" className="hover:text-gray-400">
             Devoluciones & Cambios
           </a>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

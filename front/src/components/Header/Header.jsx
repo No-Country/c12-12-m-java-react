@@ -21,7 +21,11 @@ const Header = ({ toggleDrawer, logoutUser }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
   const handleOutsideClick = (event) => {
-    if (isDropdownOpen && avatarRef.current && !avatarRef.current.contains(event.target)) {
+    if (
+      isDropdownOpen &&
+      avatarRef.current &&
+      !avatarRef.current.contains(event.target)
+    ) {
       setIsDropdownOpen(false);
     }
   };
@@ -50,9 +54,17 @@ const Header = ({ toggleDrawer, logoutUser }) => {
       </div>
       {/* <div className="header__logo"> */}
       <Link className="header__logo " to="/">
-        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">Viva</h1>
-        <img src={logo} alt="Logo" className="header__logo-image w-[55px] sm:w-[70px] md:w-[90px]" />
-        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">Vintage</h1>
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">
+          Viva
+        </h1>
+        <img
+          src={logo}
+          alt="Logo"
+          className="header__logo-image w-[55px] sm:w-[70px] md:w-[90px]"
+        />
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">
+          Vintage
+        </h1>
       </Link>
       {/* </div> */}
       <div className="header__links">
@@ -68,7 +80,11 @@ const Header = ({ toggleDrawer, logoutUser }) => {
         </Link>
 
         {/* Icono de avatar de usuario */}
-        <div className="avatar cursor-pointer" onClick={toggleDropdown} ref={avatarRef}>
+        <div
+          className="avatar cursor-pointer"
+          onClick={toggleDropdown}
+          ref={avatarRef}
+        >
           {state.authReducer.isLoggedIn ? (
             <FaUserCheck id="avatar-icon" size={26} />
           ) : (
@@ -89,7 +105,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
                 className="header__user-option"
                 onClick={toggleDropdown}
               >
-                Log In
+                Iniciar sesión
               </Link>
             )}
 
@@ -98,7 +114,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
               className="header__user-option"
               onClick={toggleDropdown}
             >
-              Sign up
+              Crear cuenta
             </Link>
           </div>
         )}

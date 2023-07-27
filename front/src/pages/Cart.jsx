@@ -29,6 +29,7 @@ const ShowCart = ({ state, addItem, removeItem }) => {
     subtotal += item.price * item.qty;
     totalItems += item.qty;
   });
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   const shippingOptions = [
     {
       id: "free",
@@ -43,6 +44,7 @@ const ShowCart = ({ state, addItem, removeItem }) => {
       price: "5.00",
     },
   ];
+
   return (
     <>
       <section className="h-100 gradient-custom">
@@ -130,57 +132,69 @@ const ShowCart = ({ state, addItem, removeItem }) => {
                       </span>
                     </li>
                   </ul>
-                  <GooglePayButton
-                    buttonSizeMode="fill"
-                    environment="TEST"
-                    buttonType="pay"
-                    buttonLocale="es"
-                    paymentRequest={{
-                      apiVersion: 2,
-                      apiVersionMinor: 0,
-                      allowedPaymentMethods: [
-                        {
-                          type: "CARD",
-                          parameters: {
-                            allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                            allowedCardNetworks: ["MASTERCARD", "VISA"],
-                          },
-                          tokenizationSpecification: {
-                            type: "PAYMENT_GATEWAY",
+
+                  {!isLoggedIn ? (
+                    <GooglePayButton
+                      buttonSizeMode="fill"
+                      environment="TEST"
+                      buttonType="pay"
+                      buttonLocale="es"
+                      paymentRequest={{
+                        apiVersion: 2,
+                        apiVersionMinor: 0,
+                        allowedPaymentMethods: [
+                          {
+                            type: "CARD",
                             parameters: {
-                              gateway: "example",
-                              gatewayMerchantId: "exampleGatewayMerchantId",
+                              allowedAuthMethods: [
+                                "PAN_ONLY",
+                                "CRYPTOGRAM_3DS",
+                              ],
+                              allowedCardNetworks: ["MASTERCARD", "VISA"],
+                            },
+                            tokenizationSpecification: {
+                              type: "PAYMENT_GATEWAY",
+                              parameters: {
+                                gateway: "example",
+                                gatewayMerchantId: "exampleGatewayMerchantId",
+                              },
                             },
                           },
+                        ],
+                        merchantInfo: {
+                          merchantId: "12345678901234567890",
+                          merchantName: "Demo Merchant",
                         },
-                      ],
-                      merchantInfo: {
-                        merchantId: "12345678901234567890",
-                        merchantName: "Demo Merchant",
-                      },
-                      transactionInfo: {
-                        totalPriceStatus: "FINAL",
-                        totalPriceLabel: "Total",
-                        totalPrice: "100.00",
-                        currencyCode: "USD",
-                        countryCode: "US",
-                      },
-                      shippingAddressRequired: true,
-                      shippingOptionParameters: {
-                        defaultSelectedOptionId: "free",
-                        shippingOptions: shippingOptions.map((o) => ({
-                          id: o.id,
-                          label: o.label,
-                          description: o.description,
-                        })),
-                      },
-                      shippingOptionRequired: true,
-                    }}
-                    onLoadPaymentData={(paymentRequest) => {
-                      console.log("load payment data", paymentRequest);
-                      navigate("/confirmation");
-                    }}
-                  />
+                        transactionInfo: {
+                          totalPriceStatus: "FINAL",
+                          totalPriceLabel: "Total",
+                          totalPrice: "100.00",
+                          currencyCode: "USD",
+                          countryCode: "US",
+                        },
+                        shippingAddressRequired: true,
+                        shippingOptionParameters: {
+                          defaultSelectedOptionId: "free",
+                          shippingOptions: shippingOptions.map((o) => ({
+                            id: o.id,
+                            label: o.label,
+                            description: o.description,
+                          })),
+                        },
+                        shippingOptionRequired: true,
+                      }}
+                      onLoadPaymentData={(paymentRequest) => {
+                        console.log("load payment data", paymentRequest);
+                        navigate("/confirmation");
+                      }}
+                    />
+                  ) : (
+                    <div style={{ fontWeight: "700" }}>
+                      Para finalizar con el pago debe{" "}
+                      <a href="/sign-in">loguearse</a>{" "}
+                    </div>
+                  )}
+
                   <p className="text-base font-mont mt-2">
                     *Por ahora solo disponibles los pagos con Google Pay <br />
                     *El costo y método de envío se calcularán durante el pago

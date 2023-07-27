@@ -1,6 +1,6 @@
 .Confirmation,
 .Error {
-  margin: 20px;
+  margin: 60px 20px;
   text-align: left;
   display: flex;
   flex-direction: column;

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Rating } from "@mui/material";
 import { BsHeart } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-import { IoBagCheckOutline } from "react-icons/io5";
 import Loading from "../components/Loading";
 import ImageProduct from "../components/ProductDetails/ImageProduct/ImageProduct";
 import Size from "../components/ProductDetails/Size/Size";
@@ -18,7 +17,6 @@ import { toast } from "react-toastify";
 import Review from "../components/ProductDetails/ProductReview/Review";
 
 export default function ProductDetail() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const rating = Math.floor(Math.random() * 5) + 1;
@@ -29,37 +27,22 @@ export default function ProductDetail() {
   //agregar a carrito
   const handleAddToCart = () => {
     if (selectedSize === "") {
-      toast.error("Por favor, selecciona una talla antes de agregar al carrito.", {
-        position: "top-center",
-        autoClose: 1200,
-        theme: "colored",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        "Por favor, selecciona una talla antes de agregar al carrito.",
+        {
+          position: "top-center",
+          autoClose: 1200,
+          theme: "colored",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       return;
     }
-    addProduct(product, selectedQuantity, "/cart");
-  };
-
-  // go to checkout
-  const handleCheckout = () => {
-    if (selectedSize === "") {
-      toast.error("Por favor, selecciona una talla antes de ir a comprar.", {
-        position: "top-center",
-        autoClose: 1200,
-        theme: "colored",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return;
-    }
-    addProduct(product, selectedQuantity, "/checkout");
+    addProduct(product, selectedQuantity);
   };
 
   const handleQuantityChange = (newQuantity) => {
@@ -67,13 +50,11 @@ export default function ProductDetail() {
     console.log(selectedQuantity, "cantidad");
   };
 
-  const addProduct = (prod, quantity, redirectTo) => {
+  const addProduct = (prod, quantity) => {
     const addProductRecursive = (remainingQuantity) => {
       if (remainingQuantity > 0) {
         dispatch(addCart(prod));
         addProductRecursive(remainingQuantity - 1);
-      } else {
-        navigate(redirectTo);
       }
     };
 
@@ -85,7 +66,7 @@ export default function ProductDetail() {
       try {
         const response = await axios.get(
           `https://backvivavintage.azurewebsites.net/product`
-          //`https://apimocha.com/vivavintage/products`
+          // `https://apimocha.com/vivavintage/products`
         );
 
         const productData = response.data.find(
@@ -126,10 +107,19 @@ export default function ProductDetail() {
     <>
       <div className="py-5 px-3 lg:px-40">
         <div className="flex flex-col lg:flex-row gap-10 font-serif place-content-center">
-          <ImageProduct image={[product.image1, product.image2, product.image3]} name={product.name} />
+          <ImageProduct
+            image={[product.image1, product.image2, product.image3]}
+            name={product.name}
+          />
 
           <div className="flex flex-col gap-[20px]">
-            <Rating precision={0.5} name="read-only" value={rating} readOnly />
+            <Rating
+              precision={0.5}
+              name="read-only"
+              sx={{ color: "#212429" }}
+              value={product.star ? product.star : rating}
+              readOnly
+            />
             <div className="flex justify-between items-center gap-5 md:gap-20">
               <h1 className="text-2xl md:text-4xl uppercase font-semibold w-[500px]">
                 {product.name}
@@ -156,19 +146,12 @@ export default function ProductDetail() {
               price={product.price}
               onQuantityChange={handleQuantityChange}
             />
-
             <div className="flex flex-wrap place-content-center md:place-content-start gap-4 pt-10">
               <ButtonTo
                 icon={<MdOutlineAddShoppingCart size={20} />}
                 name="agregar al carrito"
                 onButtonClick={handleAddToCart}
               />
-
-                <ButtonTo
-                  icon={<IoBagCheckOutline size={20} />}
-                  name="ir al checkout"
-                  onButtonClick={handleCheckout}
-                />
             </div>
           </div>
         </div>

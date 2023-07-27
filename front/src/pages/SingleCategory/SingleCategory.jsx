@@ -9,7 +9,6 @@ import RadioBtn from "../../components/RadioBtn";
 import FilterSelect from "../../components/FilterSelect";
 import { capitalizeFirstLetter } from "../../utils/constants";
 
-
 const SingleCategory = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,11 +20,11 @@ const SingleCategory = () => {
     const storedOrder = localStorage.getItem("order");
     return storedOrder || "Menor Precio";
   });
+  
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { cat } = useParams();
   let selectedCategory;
   const formattedName = capitalizeFirstLetter(cat);
-  
 
   if (cat === "pantalones") {
     selectedCategory = "pants";
@@ -45,7 +44,6 @@ const SingleCategory = () => {
     const selectedGenre = event.target.value;
     setGender(selectedGenre);
   };
-  
 
   const handleChange = (event) => {
     setOrder(event.target.value);
@@ -68,21 +66,26 @@ const SingleCategory = () => {
         );
       }
     });
-    console.log(filtered, "filtrado")
+    console.log(filtered, "filtrado");
     if (order === "Menor Precio") {
-      filtered.sort((a, b) => a.price - b.price)
+      filtered.sort((a, b) => a.price - b.price);
     }
     if (order === "Mayor Precio") {
-      filtered.sort((a, b) => b.price - a.price)
+      filtered.sort((a, b) => b.price - a.price);
     }
-    
+    if (order === "Mejor Ranking") {
+      filtered.sort((a, b) => b.star - a.star);
+    }
+    if (order === "Menor Ranking") {
+      filtered.sort((a, b) => a.star - b.star);
+    }
     setFilteredProducts(filtered);
   }, [productData, selectedCategory, gender, order]);
-
 
   useEffect(() => {
     localStorage.setItem("gender", gender);
     localStorage.setItem("order", order);
+    
   }, [gender, order]);
 
   const getCategoryProduct = async () => {
@@ -92,6 +95,7 @@ const SingleCategory = () => {
       const { data } = await axios.get(
         //`https://apimocha.com/vivavintage/products`
         `https://backvivavintage.azurewebsites.net/product`
+        //`http://localhost:9090/product`
       );
 
       setIsLoading(false);
@@ -157,7 +161,7 @@ const SingleCategory = () => {
           }}
         >
           <RadioBtn onChange={handleGenreChange} gender={gender} />
-          <FilterSelect handleChange={handleChange} order={order}/>
+          <FilterSelect handleChange={handleChange} order={order} />
         </div>
 
         {loading}

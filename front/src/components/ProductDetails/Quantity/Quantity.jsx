@@ -33,7 +33,7 @@ function Quantity({ price, onQuantityChange }) {
       </div>
       <div className="flex md:gap-3 font-mont text-sm md:text-base mt-3 md:w-[380px]">
         <div>
-          Tu has seleccionado {quantity} unidad{quantity > 1 ? "es" : ""}: <span className="font-bold"> ${totalPrice}</span> subtotal!
+          Has seleccionado {quantity} unidad{quantity > 1 ? "es" : ""}: <span className="font-bold"> ${totalPrice}</span> subtotal!
         </div>
       </div>
     </div>

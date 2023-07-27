@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, connect, useDispatch } from "react-redux";
-import { FaBars, FaShoppingCart, FaUserCircle, FaUserCheck } from "react-icons/fa";
+import {
+  FaBars,
+  FaShoppingCart,
+  FaUserCircle,
+  FaUserCheck,
+} from "react-icons/fa";
 import logo from "../../assets/deer.svg";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/reducer/authSlice";
@@ -10,9 +15,19 @@ import "./Header.scss";
 const Header = ({ toggleDrawer, logoutUser }) => {
   const state = useSelector((state) => state);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const avatarRef = useRef(null);
   const dispatch = useDispatch();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleOutsideClick = (event) => {
+    if (
+      isDropdownOpen &&
+      avatarRef.current &&
+      !avatarRef.current.contains(event.target)
+    ) {
+      setIsDropdownOpen(false);
+    }
   };
 
   const logOut = () => {
@@ -21,28 +36,38 @@ const Header = ({ toggleDrawer, logoutUser }) => {
     setIsDropdownOpen(false);
   };
 
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+    // eslint-disable-next-line
+  }, [isDropdownOpen]);
+
   console.log("state!", state);
   return (
-    <header className="header px-[18px] md:px-[40px]">
-      <div className="header__menu w-[30px] md:w-1/5">
+    <header className="header sticky z-50 top-0 px-[18px] md:px-[40px] mb-4">
+      <div className="header__menu">
         <button className="header__menu-button" onClick={toggleDrawer}>
           <FaBars className="header__menu-icon" />
         </button>
       </div>
       {/* <div className="header__logo"> */}
-      <Link
-        className="header__logo tracking-tight md:tracking-[3px] w-[45px] md:w-4/5"
-        to="/"
-      >
-        <h1 className="header__logo-text">Viva</h1>
-        <img src={logo} alt="Logo" className="header__logo-image" />
-        <h1 className="header__logo-text">Vintage</h1>
+      <Link className="header__logo " to="/">
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">
+          Viva
+        </h1>
+        <img
+          src={logo}
+          alt="Logo"
+          className="header__logo-image w-[55px] sm:w-[70px] md:w-[90px]"
+        />
+        <h1 className="header__logo-text text-lg sm:text-3xl md:text-4xl">
+          Vintage
+        </h1>
       </Link>
       {/* </div> */}
-      <div className="header__links w-[30px] md:w-1/5">
-        <Link to="/" className="header__links-link hidden md:block">
-          Home
-        </Link>
+      <div className="header__links">
         <Link
           to="/cart"
           className="header__links-link"
@@ -55,17 +80,21 @@ const Header = ({ toggleDrawer, logoutUser }) => {
         </Link>
 
         {/* Icono de avatar de usuario */}
-        <div className="avatar cursor-pointer" onClick={toggleDropdown}>
-        {state.authReducer.isLoggedIn ? (
-          <FaUserCheck id="avatar-icon" size={26} />
-        ) : (
-          <FaUserCircle id="avatar-icon" size={26} />
+        <div
+          className="avatar cursor-pointer"
+          onClick={toggleDropdown}
+          ref={avatarRef}
+        >
+          {state.authReducer.isLoggedIn ? (
+            <FaUserCheck id="avatar-icon" size={26} />
+          ) : (
+            <FaUserCircle id="avatar-icon" size={26} />
           )}
         </div>
 
         {/* Dropdown */}
         {isDropdownOpen && (
-          <div className="header__user-dropdown">
+          <div className="header__user-dropdown z-30">
             {state.authReducer.isLoggedIn ? (
               <Link to="/" className="header__user-option" onClick={logOut}>
                 Log Out
@@ -76,7 +105,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
                 className="header__user-option"
                 onClick={toggleDropdown}
               >
-                Log In
+                Iniciar sesión
               </Link>
             )}
 
@@ -85,7 +114,7 @@ const Header = ({ toggleDrawer, logoutUser }) => {
               className="header__user-option"
               onClick={toggleDropdown}
             >
-              Sign up
+              Crear cuenta
             </Link>
           </div>
         )}
@@ -93,6 +122,5 @@ const Header = ({ toggleDrawer, logoutUser }) => {
     </header>
   );
 };
-
 
 export default connect(null, { logoutUser })(Header);

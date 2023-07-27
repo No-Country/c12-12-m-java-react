@@ -1,4 +1,3 @@
-import React from "react";
 import ButtonTo from "../ButtonTo";
 import { Link } from "react-router-dom";
 

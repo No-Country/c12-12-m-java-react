@@ -4,7 +4,6 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import SingleCategory from "../pages/SingleCategory/SingleCategory";
 import Cart from "../pages/Cart";
-import Checkout from "../pages/Checkout";
 import UnderConstruction from "../pages/UnderConstruction/UnderConstruction";
 import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -20,7 +19,7 @@ import AboutUs from "../pages/FooterPages/AboutUs";
 import WhyVivavintage from "../pages/FooterPages/WhyVivavintage";
 import TermsConditions from "../pages/FooterPages/TermsConditions";
 import Contact from "../pages/FooterPages/Contact";
-
+import Confirmation from "../components/Confirmation/Confirmation";
 
 function Router() {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
@@ -34,7 +33,11 @@ function Router() {
           <Route exact path="/:cat/:id" element={<ProductDetail />} />
           <Route exact path="/categoria/:cat" element={<SingleCategory />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={isLoggedIn? <Checkout /> : <Navigate to="/sign-in" />}/>
+          {/* <Route
+            path="/cart"
+            element={isLoggedIn ? <Cart /> : <Navigate to="/sign-in" />}
+          /> */}
+          <Route path="/confirmation" element={isLoggedIn ? <Confirmation /> : <Navigate to="/sign-in"/> } />
           <Route path="/forgotpassword" element={<UnderConstruction />} />
           {/* Footer pages */}
           <Route path="/shipping-method" element={<ShippingMethod />} />

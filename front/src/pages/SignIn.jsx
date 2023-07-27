@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { useSelector } from "react-redux";
-import { connect } from "react-redux";
+import axios from "axios";
+import { useSelector, connect } from "react-redux";
 import {
   Avatar,
   Button,
@@ -22,10 +21,7 @@ import { emailRegex, errorMessages, toastOptions } from "./SignUp";
 import { loginUser } from "../redux/reducer/authSlice";
 
 export const validateCredentials = (credentials) => {
-  if (
-    !credentials.email ||
-    !credentials.password
-  ) {
+  if (!credentials.email || !credentials.password) {
     return "requiredFields";
   } else if (!emailRegex.test(credentials.email)) {
     return "invalidEmail";
@@ -51,23 +47,26 @@ const SignIn = ({ loginUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const user = {
-          email: credentials.email,
-          password: credentials.password,
-      }
+        email: credentials.email,
+        password: credentials.password,
+      };
       const errorMessage = validateCredentials(credentials);
-  
+
       if (errorMessage) {
         toast.error(errorMessages[errorMessage], toastOptions);
       } else {
         // Hacer la llamada a la API
-        const response = await axios.post("https://backvivavintage.azurewebsites.net/auth/login", user);
-        console.log(response.data, "res")
+        const response = await axios.post(
+          "https://backvivavintage.azurewebsites.net/auth/login",
+          user
+        );
+        console.log(response.data, "res");
         // Si la llamada fue exitosa, obtener el token JWT del objeto de respuesta
         const jwtToken = response.data.jwt;
-  
+
         localStorage.setItem("Authorization", `Bearer ${jwtToken}`);
         loginUser(user);
         navigate("/");
@@ -76,9 +75,9 @@ const SignIn = ({ loginUser }) => {
       toast.error(errorMessages.invalidCredentials, toastOptions);
     }
   };
-  
+
   const state = useSelector((state) => state);
-  console.log("estado", state)
+  console.log("estado", state);
   return (
     <Container component="main" maxWidth="xs" className="pb-40">
       <CssBaseline />
@@ -94,7 +93,7 @@ const SignIn = ({ loginUser }) => {
           <MdLockOutline />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Iniciar sesión
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -102,7 +101,7 @@ const SignIn = ({ loginUser }) => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Correo electrónico"
             value={credentials.email}
             name="email"
             onChange={handleOnChange}
@@ -115,7 +114,7 @@ const SignIn = ({ loginUser }) => {
             value={credentials.password}
             name="password"
             onChange={handleOnChange}
-            label="Password"
+            label="Contraseña"
             type={showPassword ? "text" : "password"}
             id="password"
             InputProps={{
@@ -133,7 +132,7 @@ const SignIn = ({ loginUser }) => {
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             //
-            label="Remember me"
+            label="Recordarme"
           />
           <Button
             type="submit"
@@ -141,28 +140,19 @@ const SignIn = ({ loginUser }) => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Iniciar sesión
           </Button>
           <Grid container>
             <Grid item xs>
               <Typography variant="body2">
-                <Link
-                  to="/forgotpassword"
-                  variant="body2"
-                  style={{ color: "#1976d2" }}
-                >
-                  Forgot password?
+                <Link to="/forgotpassword" variant="body2">
+                  ¿Olvidó su contraseña?
                 </Link>
               </Typography>
             </Grid>
             <Typography variant="body2">
-              Don&apos;t have an account?{" "}
-              <Link
-                to="/sign-up"
-                variant="body2"
-                style={{ color: "#1976d2", marginLeft: 3 }}
-              >
-                Sign Up
+              <Link to="/register" variant="body2" style={{ marginLeft: 3 }}>
+                ¿No tiene una cuenta? Cree una aquí
               </Link>
             </Typography>
           </Grid>
@@ -172,4 +162,4 @@ const SignIn = ({ loginUser }) => {
   );
 };
 
-export default connect(null, {loginUser})(SignIn);
+export default connect(null, { loginUser })(SignIn);

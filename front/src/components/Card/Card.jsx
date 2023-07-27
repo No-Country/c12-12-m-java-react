@@ -10,20 +10,20 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import "./Card.scss";
-import { useDispatch } from "react-redux";
-import { addCart } from "../../redux/action";
+// import { useDispatch } from "react-redux";
+// import { addCart } from "../../redux/action";
 import { capitalizeFirstLetter } from "../../utils/constants";
 
 export default function ProductCard({ prod, cat }) {
   const name = capitalizeFirstLetter(prod.name);
   const rating = Math.floor(Math.random() * 5) + 1;
-  const dispatch = useDispatch();
-  const addProduct = (prod) => {
-    dispatch(addCart(prod));
-  };
-console.log("prod", prod)
+  // const dispatch = useDispatch();
+  // const addProduct = (prod) => {
+  //   dispatch(addCart(prod));
+  // };
+  console.log("prod", prod);
   return (
-    <Card className="main_card h-[395px]">
+    <Card className="main_card h-[395px]" sx={{ boxShadow: 0 }}>
       <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
         <CardActionArea className="card_action">
           <Box className="cart_box">
@@ -57,10 +57,16 @@ console.log("prod", prod)
           ${prod.price}
         </Typography>
         <Typography>
-          <Rating precision={0.5} name="read-only" value={rating} readOnly />
+          <Rating
+            precision={0.5}
+            sx={{color: '#212429'}}
+            name="read-only"
+            value={prod.star ? prod.star : rating}
+            readOnly
+          />
         </Typography>
       </CardActions>
-      <Button onClick={() => addProduct(prod)}>Add to cart</Button>
+      {/* <Button onClick={() => addProduct(prod)}>Agregar al carrito</Button> */}
     </Card>
   );
 }

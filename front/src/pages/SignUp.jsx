@@ -20,14 +20,14 @@ import { Box, Container } from "@mui/system";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const errorMessages = {
-  requiredFields: "All fields are required",
-  shortUserName: "Please enter a User Name with more than 5 characters",
-  shortFirstName: "Please enter a First Name with more than 5 characters",
-  shortLastName: "Please enter a Last Name with more than 5 characters",
-  invalidEmail: "Please enter a valid email",
+  requiredFields: "Todos los campos son obligatorios",
+  shortUserName: "Introduzca un Nombre de Usuario con más de 5 caracteres",
+  shortFirstName: "Introduzca un Nombre con más de 5 caracteres",
+  shortLastName: "Introduzca un apellido de más de 5 caracteres",
+  invalidEmail: "Introduzca una dirección de correo electrónico válida",
   shortPassword:
-    "Please enter a password with more than 5 characters with a capital letter and a number",
-  invalidCredentials: "Invalid Credentials",
+    "Introduzca una contraseña de más de 5 caracteres con una letra mayúscula y un número",
+  invalidCredentials: "Credenciales inválidas",
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -80,15 +80,18 @@ function SignUp() {
 
   const registerUser = async () => {
     try {
-      const response = await axios.post("https://backvivavintage.azurewebsites.net/auth/register", {
-        username: credentials.username,
-        email: credentials.email,
-        password: credentials.password,
-        firstName: credentials.firstName,
-        lastName: credentials.lastName,
-      });
-      console.log("User registered successfully:", response);
-      toast.success("User registered successfully", toastOptions);
+      const response = await axios.post(
+        "https://backvivavintage.azurewebsites.net/auth/register",
+        {
+          username: credentials.username,
+          email: credentials.email,
+          password: credentials.password,
+          firstName: credentials.firstName,
+          lastName: credentials.lastName,
+        }
+      );
+      console.log("Usuario registrado exitosamente:", response);
+      toast.success("Usuario registrado exitosamente", toastOptions);
       setCredentials({
         username: "",
         email: "",
@@ -99,8 +102,8 @@ function SignUp() {
       navigate("/");
       // Realizar acciones adicionales después de registrar al usuario
     } catch (error) {
-      console.error("Failed to register user:", error);
-      toast.error("Failed to register user", toastOptions);
+      console.error("Error al crear usuario:", error);
+      toast.error("Error al crear usuario", toastOptions);
       // Manejar el error de registro de usuario
     }
   };
@@ -142,7 +145,7 @@ function SignUp() {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Crear cuenta
           </Typography>
           <Box
             component="form"
@@ -158,7 +161,7 @@ function SignUp() {
                   required
                   fullWidth
                   id="username"
-                  label="User Name"
+                  label="Nombre de Usuario"
                   autoFocus
                   value={credentials.username}
                   onChange={handleOnChange}
@@ -171,7 +174,7 @@ function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Nombre"
                   value={credentials.fullName}
                   onChange={handleOnChange}
                 />
@@ -183,7 +186,7 @@ function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Apellidos"
                   value={credentials.fullName}
                   onChange={handleOnChange}
                 />
@@ -193,7 +196,7 @@ function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Correo electrónico"
                   name="email"
                   autoComplete="email"
                   value={credentials.email}
@@ -205,7 +208,7 @@ function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Contraseña"
                   value={credentials.password}
                   onChange={handleOnChange}
                   type={showPassword ? "text" : "password"}
@@ -232,7 +235,7 @@ function SignUp() {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="I want to receive promotions and updates via email."
+                  label="Recibir ofertas de nuestros socios"
                 />
               </Grid>
             </Grid>
@@ -242,17 +245,14 @@ function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Crear cuenta
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Typography variant="body2">
-                  Already have an account?{" "}
-                  <Link
-                    to="/sign-in"
-                    style={{ color: "#1976d2", marginLeft: 3 }}
-                  >
-                    Sign in
+                  ¿Ya tiene una cuenta?
+                  <Link to="/sign-in" style={{ marginLeft: 3 }}>
+                    ¡Inicie sesión!
                   </Link>
                 </Typography>
               </Grid>

@@ -124,10 +124,10 @@ export default function ProductDetail() {
               <h1 className="text-2xl md:text-4xl uppercase font-semibold w-[500px]">
                 {product.name}
               </h1>
-              <BsHeart
+              {/* <BsHeart
                 size={20}
                 className="hover:text-rose-600 transition cursor-pointer"
-              />
+              /> */}
             </div>
             <p className="text-xl text-[#828282] md:w-[490px]">
               {product.description}

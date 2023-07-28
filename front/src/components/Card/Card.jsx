@@ -23,7 +23,10 @@ export default function ProductCard({ prod, cat }) {
   // };
   console.log("prod", prod);
   return (
-    <Card className="main_card h-[395px]" sx={{ boxShadow: 0 }}>
+    <Card
+      className="main_card h-[395px] hover:text-black-100 hover:outline transition"
+      sx={{ boxShadow: 0 }}
+    >
       <Link to={`/${cat}/${prod.id}`} key={prod.id} className="link">
         <CardActionArea className="card_action">
           <Box className="cart_box">
@@ -59,7 +62,7 @@ export default function ProductCard({ prod, cat }) {
         <Typography>
           <Rating
             precision={0.5}
-            sx={{color: '#212429'}}
+            sx={{ color: "#212429" }}
             name="read-only"
             value={prod.star ? prod.star : rating}
             readOnly
